@@ -3,8 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    kotlin("kapt") // hoặc id("com.google.devtools.ksp") nếu dùng KSP
-}
+    id("com.google.devtools.ksp")}
 
 android {
     namespace = "com.example.expense_tracker"
@@ -12,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.expense_tracker"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -63,8 +62,7 @@ dependencies {
     // Room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-    kapt(libs.androidx.room.compiler)  // hoặc ksp nếu bạn dùng KSP
-
+    ksp(libs.androidx.room.compiler)
     // Lifecycle
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.livedata)
