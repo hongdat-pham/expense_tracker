@@ -4,25 +4,94 @@ package com.example.expense_tracker.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
+import androidx.viewbinding.ViewBindings;
 import com.example.expense_tracker.R;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import java.lang.NullPointerException;
 import java.lang.Override;
+import java.lang.String;
 
 public final class FragmentRegisterBinding implements ViewBinding {
   @NonNull
-  private final FrameLayout rootView;
+  private final ScrollView rootView;
 
-  private FragmentRegisterBinding(@NonNull FrameLayout rootView) {
+  @NonNull
+  public final ImageButton btnBack;
+
+  @NonNull
+  public final Button btnRegister;
+
+  @NonNull
+  public final TextInputEditText etEmail;
+
+  @NonNull
+  public final TextInputEditText etFullName;
+
+  @NonNull
+  public final TextInputEditText etPassword;
+
+  @NonNull
+  public final TextInputLayout tilEmail;
+
+  @NonNull
+  public final TextInputLayout tilFullName;
+
+  @NonNull
+  public final TextInputLayout tilPassword;
+
+  @NonNull
+  public final TextView tvEmail;
+
+  @NonNull
+  public final TextView tvFullName;
+
+  @NonNull
+  public final TextView tvLogin;
+
+  @NonNull
+  public final TextView tvPassword;
+
+  @NonNull
+  public final TextView tvSubtitle;
+
+  @NonNull
+  public final TextView tvTitle;
+
+  private FragmentRegisterBinding(@NonNull ScrollView rootView, @NonNull ImageButton btnBack,
+      @NonNull Button btnRegister, @NonNull TextInputEditText etEmail,
+      @NonNull TextInputEditText etFullName, @NonNull TextInputEditText etPassword,
+      @NonNull TextInputLayout tilEmail, @NonNull TextInputLayout tilFullName,
+      @NonNull TextInputLayout tilPassword, @NonNull TextView tvEmail, @NonNull TextView tvFullName,
+      @NonNull TextView tvLogin, @NonNull TextView tvPassword, @NonNull TextView tvSubtitle,
+      @NonNull TextView tvTitle) {
     this.rootView = rootView;
+    this.btnBack = btnBack;
+    this.btnRegister = btnRegister;
+    this.etEmail = etEmail;
+    this.etFullName = etFullName;
+    this.etPassword = etPassword;
+    this.tilEmail = tilEmail;
+    this.tilFullName = tilFullName;
+    this.tilPassword = tilPassword;
+    this.tvEmail = tvEmail;
+    this.tvFullName = tvFullName;
+    this.tvLogin = tvLogin;
+    this.tvPassword = tvPassword;
+    this.tvSubtitle = tvSubtitle;
+    this.tvTitle = tvTitle;
   }
 
   @Override
   @NonNull
-  public FrameLayout getRoot() {
+  public ScrollView getRoot() {
     return rootView;
   }
 
@@ -43,10 +112,99 @@ public final class FragmentRegisterBinding implements ViewBinding {
 
   @NonNull
   public static FragmentRegisterBinding bind(@NonNull View rootView) {
-    if (rootView == null) {
-      throw new NullPointerException("rootView");
-    }
+    // The body of this method is generated in a way you would not otherwise write.
+    // This is done to optimize the compiled bytecode for size and performance.
+    int id;
+    missingId: {
+      id = R.id.btnBack;
+      ImageButton btnBack = ViewBindings.findChildViewById(rootView, id);
+      if (btnBack == null) {
+        break missingId;
+      }
 
-    return new FragmentRegisterBinding((FrameLayout) rootView);
+      id = R.id.btnRegister;
+      Button btnRegister = ViewBindings.findChildViewById(rootView, id);
+      if (btnRegister == null) {
+        break missingId;
+      }
+
+      id = R.id.etEmail;
+      TextInputEditText etEmail = ViewBindings.findChildViewById(rootView, id);
+      if (etEmail == null) {
+        break missingId;
+      }
+
+      id = R.id.etFullName;
+      TextInputEditText etFullName = ViewBindings.findChildViewById(rootView, id);
+      if (etFullName == null) {
+        break missingId;
+      }
+
+      id = R.id.etPassword;
+      TextInputEditText etPassword = ViewBindings.findChildViewById(rootView, id);
+      if (etPassword == null) {
+        break missingId;
+      }
+
+      id = R.id.tilEmail;
+      TextInputLayout tilEmail = ViewBindings.findChildViewById(rootView, id);
+      if (tilEmail == null) {
+        break missingId;
+      }
+
+      id = R.id.tilFullName;
+      TextInputLayout tilFullName = ViewBindings.findChildViewById(rootView, id);
+      if (tilFullName == null) {
+        break missingId;
+      }
+
+      id = R.id.tilPassword;
+      TextInputLayout tilPassword = ViewBindings.findChildViewById(rootView, id);
+      if (tilPassword == null) {
+        break missingId;
+      }
+
+      id = R.id.tvEmail;
+      TextView tvEmail = ViewBindings.findChildViewById(rootView, id);
+      if (tvEmail == null) {
+        break missingId;
+      }
+
+      id = R.id.tvFullName;
+      TextView tvFullName = ViewBindings.findChildViewById(rootView, id);
+      if (tvFullName == null) {
+        break missingId;
+      }
+
+      id = R.id.tvLogin;
+      TextView tvLogin = ViewBindings.findChildViewById(rootView, id);
+      if (tvLogin == null) {
+        break missingId;
+      }
+
+      id = R.id.tvPassword;
+      TextView tvPassword = ViewBindings.findChildViewById(rootView, id);
+      if (tvPassword == null) {
+        break missingId;
+      }
+
+      id = R.id.tvSubtitle;
+      TextView tvSubtitle = ViewBindings.findChildViewById(rootView, id);
+      if (tvSubtitle == null) {
+        break missingId;
+      }
+
+      id = R.id.tvTitle;
+      TextView tvTitle = ViewBindings.findChildViewById(rootView, id);
+      if (tvTitle == null) {
+        break missingId;
+      }
+
+      return new FragmentRegisterBinding((ScrollView) rootView, btnBack, btnRegister, etEmail,
+          etFullName, etPassword, tilEmail, tilFullName, tilPassword, tvEmail, tvFullName, tvLogin,
+          tvPassword, tvSubtitle, tvTitle);
+    }
+    String missingId = rootView.getResources().getResourceName(id);
+    throw new NullPointerException("Missing required view with ID: ".concat(missingId));
   }
 }
