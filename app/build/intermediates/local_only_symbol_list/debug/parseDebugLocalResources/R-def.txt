@@ -11,14 +11,16 @@ drawable ic_launcher_background
 drawable ic_launcher_foreground
 id action_activity_to_detail
 id action_activity_to_newTransaction
-id action_login_to_register
+id action_loginFragment_to_mainActivity
+id action_loginFragment_to_registerFragment
 id action_overview_to_newTransaction
-id action_register_to_login
+id action_registerFragment_to_loginFragment
 id action_settings_to_budgetLimits
 id action_settings_to_manageAccount
 id activityDetailFragment
 id activityFragment
 id analyticsFragment
+id auth_nav_host_fragment
 id bottomNavigationView
 id btnBack
 id btnLogin
@@ -29,6 +31,7 @@ id etFullName
 id etPassword
 id ivLogo
 id loginFragment
+id mainActivity
 id manageAccountFragment
 id navHostFragment
 id nav_auth
@@ -48,6 +51,7 @@ id tvPassword
 id tvRegister
 id tvSubtitle
 id tvTitle
+layout activity_auth
 layout activity_main
 layout fragment_activity
 layout fragment_activity_detail

@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:2:1-15:12
-INJECTED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:2:1-15:12
-INJECTED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:2:1-15:12
-INJECTED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:2:1-15:12
+ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:2:1-36:12
+INJECTED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:2:1-36:12
+INJECTED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:2:1-36:12
+INJECTED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:2:1-36:12
 MERGED from [androidx.databinding:viewbinding:8.7.3] C:\Users\84916\.gradle\caches\9.1.0\transforms\9b06d3a9e2523980eba4fcf831a6e080\workspace\transformed\viewbinding-8.7.3\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.navigation:navigation-common:2.8.5] C:\Users\84916\.gradle\caches\9.1.0\transforms\171b0f2abef2401774c17572aa126cd6\workspace\transformed\navigation-common-2.8.5\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.navigation:navigation-common-ktx:2.8.5] C:\Users\84916\.gradle\caches\9.1.0\transforms\76c90d3e22821f22a018c8ef226724a8\workspace\transformed\navigation-common-ktx-2.8.5\AndroidManifest.xml:2:1-7:12
@@ -83,8 +83,8 @@ MERGED from [androidx.print:print:1.0.0] C:\Users\84916\.gradle\caches\9.1.0\tra
 	xmlns:android
 		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:2:11-69
 application
-ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:5:5-13:56
-INJECTED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:5:5-13:56
+ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:5:5-34:19
+INJECTED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:5:5-34:19
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\84916\.gradle\caches\9.1.0\transforms\764f6978973330f2d61ae400da5b3e2c\workspace\transformed\material-1.12.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.12.0] C:\Users\84916\.gradle\caches\9.1.0\transforms\764f6978973330f2d61ae400da5b3e2c\workspace\transformed\material-1.12.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.2.0] C:\Users\84916\.gradle\caches\9.1.0\transforms\11f3ce2e694c865e1417beed4f12a233\workspace\transformed\constraintlayout-2.2.0\AndroidManifest.xml:7:5-20
@@ -110,21 +110,51 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\84916\.gradle\cach
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.15.0] C:\Users\84916\.gradle\caches\9.1.0\transforms\2dcca77fe4705c5f189c26bb774395fa\workspace\transformed\core-1.15.0\AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:12:9-35
+		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:13:9-35
 	android:label
-		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:10:9-41
+		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:11:9-41
 	android:fullBackupContent
-		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:8:9-54
+		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:9:9-54
 	android:roundIcon
-		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:11:9-54
+		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:12:9-54
 	android:icon
-		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:9:9-43
+		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:10:9-43
 	android:allowBackup
-		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:6:9-35
+		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:7:9-35
 	android:theme
-		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:13:9-53
+		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:14:9-53
 	android:dataExtractionRules
-		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:7:9-65
+		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:8:9-65
+	android:name
+		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:6:9-42
+activity#com.example.expense_tracker.SplashActivity
+ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:17:9-24:20
+	android:exported
+		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:19:13-36
+	android:name
+		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:18:13-43
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:20:13-23:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:21:17-69
+	android:name
+		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:21:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:22:17-77
+	android:name
+		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:22:27-74
+activity#com.example.expense_tracker.AuthActivity
+ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:26:9-28:40
+	android:exported
+		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:28:13-37
+	android:name
+		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:27:13-41
+activity#com.example.expense_tracker.MainActivity
+ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:30:9-32:40
+	android:exported
+		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:32:13-37
+	android:name
+		ADDED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml:31:13-41
 uses-sdk
 INJECTED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\src\main\AndroidManifest.xml

@@ -3225,14 +3225,15 @@ id action_container
 id action_context_bar
 id action_divider
 id action_image
-id action_login_to_register
+id action_loginFragment_to_mainActivity
+id action_loginFragment_to_registerFragment
 id action_menu_divider
 id action_menu_presenter
 id action_mode_bar
 id action_mode_bar_stub
 id action_mode_close_button
 id action_overview_to_newTransaction
-id action_register_to_login
+id action_registerFragment_to_loginFragment
 id action_settings_to_budgetLimits
 id action_settings_to_manageAccount
 id action_text
@@ -3255,6 +3256,7 @@ id anticipate
 id arc
 id asConfigured
 id async
+id auth_nav_host_fragment
 id auto
 id autoComplete
 id autoCompleteToEnd
@@ -3430,6 +3432,7 @@ id locale
 id loginFragment
 id ltr
 id m3_side_sheet
+id mainActivity
 id manageAccountFragment
 id marquee
 id masked
@@ -3828,6 +3831,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_auth
 layout activity_main
 layout custom_dialog
 layout design_bottom_navigation_item

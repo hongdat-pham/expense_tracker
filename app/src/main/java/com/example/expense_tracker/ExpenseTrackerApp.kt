@@ -17,7 +17,7 @@ class ExpenseTrackerApp : Application() {
     }
 
     val prefsHelper: SharedPrefsHelper by lazy {
-        SharedPrefsHelper.getInstance(this)
+        SharedPrefsHelper(this)
     }
 
     override fun onCreate() {

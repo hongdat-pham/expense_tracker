@@ -1,91 +1,98 @@
 package com.example.expense_tracker.ui.auth
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.expense_tracker.ExpenseTrackerApp
+import com.example.expense_tracker.data.local.dao.UserDao
 import com.example.expense_tracker.data.local.entity.UserEntity
+import com.example.expense_tracker.utils.SharedPrefsHelper
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.security.MessageDigest
 
-sealed class AuthResult {
-    object Success : AuthResult()
-    data class Error(val message: String) : AuthResult()
-}
+class AuthViewModel(
+    private val userDao: UserDao,
+    private val sharedPrefsHelper: SharedPrefsHelper
+) : ViewModel() {
 
-class AuthViewModel(application: Application) : AndroidViewModel(application) {
+    // --- State ---
 
-    private val db = (application as ExpenseTrackerApp).database
-    private val prefs = (application as ExpenseTrackerApp).prefsHelper
+    private val _loginState = MutableStateFlow<AuthResult>(AuthResult.Idle)
+    val loginState: StateFlow<AuthResult> = _loginState
 
-    private val _authResult = MutableLiveData<AuthResult>()
-    val authResult: LiveData<AuthResult> = _authResult
+    private val _registerState = MutableStateFlow<AuthResult>(AuthResult.Idle)
+    val registerState: StateFlow<AuthResult> = _registerState
 
-    // Email sau khi đăng ký — dùng để tự điền vào LoginFragment
-    private val _registeredEmail = MutableLiveData<String>()
-    val registeredEmail: LiveData<String> = _registeredEmail
+    // After successful register: carry email+pass to LoginFragment for auto-fill
+    private val _registeredCredentials = MutableSharedFlow<Credentials>()
+    val registeredCredentials: SharedFlow<Credentials> = _registeredCredentials
+
+    // --- Auth Actions ---
 
     fun register(fullName: String, email: String, password: String) {
         if (fullName.isBlank() || email.isBlank() || password.isBlank()) {
-            _authResult.value = AuthResult.Error("Please fill in all fields")
+            _registerState.value = AuthResult.Error("All fields are required")
             return
         }
-        if (password.length < 6) {
-            _authResult.value = AuthResult.Error("Password must be at least 6 characters")
-            return
-        }
-
         viewModelScope.launch {
-            try {
-                val existing = db.userDao().getUserByEmail(email)
-                if (existing != null) {
-                    _authResult.value = AuthResult.Error("Email already registered")
-                    return@launch
-                }
-
-                val user = UserEntity(
-                    fullName = fullName,
-                    email = email,
-                    passwordHash = hashPassword(password)
-                )
-                db.userDao().insertUser(user)
-                _registeredEmail.value = email
-                _authResult.value = AuthResult.Success
-
-            } catch (e: Exception) {
-                _authResult.value = AuthResult.Error("Registration failed: ${e.message}")
+            _registerState.value = AuthResult.Loading
+            val existing = userDao.getUserByEmail(email)
+            if (existing != null) {
+                _registerState.value = AuthResult.Error("An account with this email already exists")
+                return@launch
             }
+            val hash = sha256(password)
+            val newUser = UserEntity(fullName = fullName, email = email, passwordHash = hash)
+            userDao.insertUser(newUser)
+            _registeredCredentials.emit(Credentials(email, password))
+            _registerState.value = AuthResult.Success
         }
     }
 
     fun login(email: String, password: String) {
         if (email.isBlank() || password.isBlank()) {
-            _authResult.value = AuthResult.Error("Please fill in all fields")
+            _loginState.value = AuthResult.Error("Email and password are required")
             return
         }
-
         viewModelScope.launch {
-            try {
-                val user = db.userDao().getUserByEmail(email)
-                if (user == null || user.passwordHash != hashPassword(password)) {
-                    _authResult.value = AuthResult.Error("Invalid email or password")
-                    return@launch
-                }
-
-                prefs.saveSession(user.id, user.email, user.fullName)
-                _authResult.value = AuthResult.Success
-
-            } catch (e: Exception) {
-                _authResult.value = AuthResult.Error("Login failed: ${e.message}")
+            _loginState.value = AuthResult.Loading
+            val user = userDao.getUserByEmail(email)
+            if (user == null || user.passwordHash != sha256(password)) {
+                _loginState.value = AuthResult.Error("Invalid email or password")
+                return@launch
             }
+            sharedPrefsHelper.saveUserId(user.id)
+            sharedPrefsHelper.saveUserEmail(user.email)
+            sharedPrefsHelper.saveUserFullName(user.fullName)
+            _loginState.value = AuthResult.Success
         }
     }
 
-    private fun hashPassword(password: String): String {
-        val digest = MessageDigest.getInstance("SHA-256")
-        val hashBytes = digest.digest(password.toByteArray())
-        return hashBytes.joinToString("") { "%02x".format(it) }
+    fun resetLoginState() {
+        _loginState.value = AuthResult.Idle
     }
+
+    fun resetRegisterState() {
+        _registerState.value = AuthResult.Idle
+    }
+
+    // --- Helper ---
+
+    private fun sha256(input: String): String {
+        val bytes = MessageDigest.getInstance("SHA-256").digest(input.toByteArray())
+        return bytes.joinToString("") { "%02x".format(it) }
+    }
+
+    // --- Sealed Result ---
+
+    sealed class AuthResult {
+        object Idle : AuthResult()
+        object Loading : AuthResult()
+        object Success : AuthResult()
+        data class Error(val message: String) : AuthResult()
+    }
+
+    data class Credentials(val email: String, val password: String)
 }

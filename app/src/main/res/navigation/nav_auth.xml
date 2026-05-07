@@ -8,9 +8,22 @@
         android:id="@+id/loginFragment"
         android:name="com.example.expense_tracker.ui.auth.LoginFragment"
         android:label="Login">
+        <argument
+            android:name="prefill_email"
+            app:argType="string"
+            android:defaultValue="" />
+        <argument
+            android:name="prefill_password"
+            app:argType="string"
+            android:defaultValue="" />
         <action
-            android:id="@+id/action_login_to_register"
+            android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_mainActivity"
+            app:destination="@id/mainActivity"
+            app:popUpTo="@id/nav_auth"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -18,10 +31,14 @@
         android:name="com.example.expense_tracker.ui.auth.RegisterFragment"
         android:label="Register">
         <action
-            android:id="@+id/action_register_to_login"
+            android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
     </fragment>
+
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.expense_tracker.MainActivity" />
 
 </navigation>

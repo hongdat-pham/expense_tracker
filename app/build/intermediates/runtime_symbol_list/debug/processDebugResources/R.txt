@@ -3224,14 +3224,15 @@ int id action_container 0x7f08003d
 int id action_context_bar 0x7f08003e
 int id action_divider 0x7f08003f
 int id action_image 0x7f080040
-int id action_login_to_register 0x7f080041
+int id action_loginFragment_to_mainActivity 0x7f080229
+int id action_loginFragment_to_registerFragment 0x7f08022a
 int id action_menu_divider 0x7f080042
 int id action_menu_presenter 0x7f080043
 int id action_mode_bar 0x7f080044
 int id action_mode_bar_stub 0x7f080045
 int id action_mode_close_button 0x7f080046
 int id action_overview_to_newTransaction 0x7f080047
-int id action_register_to_login 0x7f080048
+int id action_registerFragment_to_loginFragment 0x7f08022b
 int id action_settings_to_budgetLimits 0x7f080049
 int id action_settings_to_manageAccount 0x7f08004a
 int id action_text 0x7f08004b
@@ -3254,6 +3255,7 @@ int id anticipate 0x7f08005b
 int id arc 0x7f08005c
 int id asConfigured 0x7f08005d
 int id async 0x7f08005e
+int id auth_nav_host_fragment 0x7f08022c
 int id auto 0x7f08005f
 int id autoComplete 0x7f080060
 int id autoCompleteToEnd 0x7f080061
@@ -3429,6 +3431,7 @@ int id locale 0x7f08010a
 int id loginFragment 0x7f08010b
 int id ltr 0x7f08010c
 int id m3_side_sheet 0x7f08010d
+int id mainActivity 0x7f08022d
 int id manageAccountFragment 0x7f08010e
 int id marquee 0x7f08010f
 int id masked 0x7f080110
@@ -3827,6 +3830,7 @@ int layout abc_search_dropdown_item_icons_2line 0x7f0b0018
 int layout abc_search_view 0x7f0b0019
 int layout abc_select_dialog_material 0x7f0b001a
 int layout abc_tooltip 0x7f0b001b
+int layout activity_auth 0x7f0b0079
 int layout activity_main 0x7f0b001c
 int layout custom_dialog 0x7f0b001d
 int layout design_bottom_navigation_item 0x7f0b001e
