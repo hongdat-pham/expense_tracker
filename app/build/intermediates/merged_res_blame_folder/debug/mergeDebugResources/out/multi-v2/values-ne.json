@@ -4,7 +4,24 @@
             "outputFile": "com.example.expense_tracker.app-mergeDebugResources-52:/values-ne/values-ne.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\84916\\.gradle\\caches\\9.1.0\\transforms\\12b5e0d47ee0fad2635d3fe3eb2e862f\\workspace\\transformed\\appcompat-1.7.0\\res\\values-ne\\values-ne.xml",
+                    "source": "C:\\Users\\Gifti\\.gradle\\caches\\9.1.0\\transforms\\1798cad5c8cd9215fc0515e641217ba0\\workspace\\transformed\\navigation-ui-2.8.5\\res\\values-ne\\values-ne.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,172",
+                        "endColumns": "116,119",
+                        "endOffsets": "167,287"
+                    },
+                    "to": {
+                        "startLines": "111,112",
+                        "startColumns": "4,4",
+                        "startOffsets": "9591,9708",
+                        "endColumns": "116,119",
+                        "endOffsets": "9703,9823"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Gifti\\.gradle\\caches\\9.1.0\\transforms\\12b5e0d47ee0fad2635d3fe3eb2e862f\\workspace\\transformed\\appcompat-1.7.0\\res\\values-ne\\values-ne.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -21,24 +38,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\84916\\.gradle\\caches\\9.1.0\\transforms\\2dcca77fe4705c5f189c26bb774395fa\\workspace\\transformed\\core-1.15.0\\res\\values-ne\\values-ne.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,158,261,363,469,567,667,775",
-                        "endColumns": "102,102,101,105,97,99,107,100",
-                        "endOffsets": "153,256,358,464,562,662,770,871"
-                    },
-                    "to": {
-                        "startLines": "38,39,40,41,42,43,44,118",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "3522,3625,3728,3830,3936,4034,4134,10230",
-                        "endColumns": "102,102,101,105,97,99,107,100",
-                        "endOffsets": "3620,3723,3825,3931,4029,4129,4237,10326"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\84916\\.gradle\\caches\\9.1.0\\transforms\\764f6978973330f2d61ae400da5b3e2c\\workspace\\transformed\\material-1.12.0\\res\\values-ne\\values-ne.xml",
+                    "source": "C:\\Users\\Gifti\\.gradle\\caches\\9.1.0\\transforms\\764f6978973330f2d61ae400da5b3e2c\\workspace\\transformed\\material-1.12.0\\res\\values-ne\\values-ne.xml",
                     "from": {
                         "startLines": "2,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -57,20 +57,20 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\84916\\.gradle\\caches\\9.1.0\\transforms\\1798cad5c8cd9215fc0515e641217ba0\\workspace\\transformed\\navigation-ui-2.8.5\\res\\values-ne\\values-ne.xml",
+                    "source": "C:\\Users\\Gifti\\.gradle\\caches\\9.1.0\\transforms\\2dcca77fe4705c5f189c26bb774395fa\\workspace\\transformed\\core-1.15.0\\res\\values-ne\\values-ne.xml",
                     "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,172",
-                        "endColumns": "116,119",
-                        "endOffsets": "167,287"
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,158,261,363,469,567,667,775",
+                        "endColumns": "102,102,101,105,97,99,107,100",
+                        "endOffsets": "153,256,358,464,562,662,770,871"
                     },
                     "to": {
-                        "startLines": "111,112",
-                        "startColumns": "4,4",
-                        "startOffsets": "9591,9708",
-                        "endColumns": "116,119",
-                        "endOffsets": "9703,9823"
+                        "startLines": "38,39,40,41,42,43,44,118",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "3522,3625,3728,3830,3936,4034,4134,10230",
+                        "endColumns": "102,102,101,105,97,99,107,100",
+                        "endOffsets": "3620,3723,3825,3931,4029,4129,4237,10326"
                     }
                 }
             ]

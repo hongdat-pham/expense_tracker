@@ -7,7 +7,62 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="white">#FFFFFFFF</color>
+    <string name="AMOUNT">--.--</string>
+    <string name="Budget_left">$ --.--</string>
+    <string name="CATEGORY">--.--</string>
+    <string name="DATE_AND_TIME">--.--</string>
+    <string name="Monthly_Spending">$ --.--</string>
+    <string name="PAYMENT">--.--</string>
+    <string name="Percent_Growth">$ --.--</string>
+    <string name="TODO">TODO</string>
+    <string name="TOTAL_AMOUNT">--.--</string>
+    <string name="TOTAL_PORTFOLIO">$ --.--</string>
+    <string name="_142_30">-$142.30</string>
+    <string name="_4k">/ $4k</string>
+    <string name="activity">ACTIVITY</string>
+    <string name="activity_detail">Activity Detail</string>
+    <string name="add_transaction">Add transaction</string>
+    <string name="all">All</string>
+    <string name="analytics">ANALYTICS</string>
     <string name="app_name">Expense_tracker</string>
+    <string name="budget_left">Budget Left</string>
+    <string name="category">CATEGORY</string>
+    <string name="chase_private_client_9012">Chase Private Client (•••• 9012)</string>
+    <string name="date_amp_time"><![CDATA[DATE & TIME]]></string>
+    <string name="description">DESCRIPTION</string>
+    <string name="expenses">Expenses</string>
+    <string name="general_information">GENERAL INFORMATION</string>
+    <string name="groceries">Groceries</string>
+    <string name="income">Income</string>
+    <string name="monthly_spending">MONTHLY SPENDING</string>
+    <string name="oct_03_2023_14_30">Oct 03, 2023, 14:30</string>
+    <string name="overview">OVERVIEW</string>
+    <string name="payment_method">PAYMENT METHOD</string>
+    <string name="placeholder_amount">--.--</string>
+    <string name="quot_weekly_grocery_run_at_whole_foods_includes_organic_produce_and_pantry_staples_for_the_upcoming_week_quot">\"Weekly grocery run at Whole Foods. Includes organic produce and pantry staples for the upcoming week.\"</string>
+    <string name="receipt">RECEIPT</string>
+    <string name="recent_transactions">Recent Transactions</string>
+    <string name="recurring">Recurring</string>
+    <string name="search_transactions">Search transactions...</string>
+    <string name="settings">SETTINGS</string>
+    <string name="tap_to_view_receipt_image">Tap to view receipt image</string>
+    <string name="the_ledger">The Ledger</string>
+    <string name="todo">TODO</string>
+    <string name="todo_2">TODO</string>
+    <string name="todo_3">TODO</string>
+    <string name="todo_4">TODO</string>
+    <string name="todo_5">TODO</string>
+    <string name="todo_6">TODO</string>
+    <string name="total_portfolio">TOTAL PORTFOLIO</string>
+    <string name="view_all">View All</string>
+    <string name="whole_foods_market">Whole Foods Market</string>
+    <style name="CustomIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">#025B76</item> <item name="marginHorizontal">4dp</item>
+    </style>
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
     <style name="Theme.Expense_tracker" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         
         <item name="colorPrimary">@color/purple_500</item>

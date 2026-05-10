@@ -4,25 +4,106 @@ package com.example.expense_tracker.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
+import androidx.viewbinding.ViewBindings;
 import com.example.expense_tracker.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import java.lang.NullPointerException;
 import java.lang.Override;
+import java.lang.String;
 
 public final class FragmentOverviewBinding implements ViewBinding {
   @NonNull
-  private final FrameLayout rootView;
+  private final RelativeLayout rootView;
 
-  private FragmentOverviewBinding(@NonNull FrameLayout rootView) {
+  @NonNull
+  public final MaterialCardView badgeGrowth;
+
+  @NonNull
+  public final BottomNavigationView bottomNavigation;
+
+  @NonNull
+  public final MaterialCardView cardBudget;
+
+  @NonNull
+  public final MaterialCardView cardMonthlySpending;
+
+  @NonNull
+  public final FloatingActionButton fabAdd;
+
+  @NonNull
+  public final ImageView ivAvatar;
+
+  @NonNull
+  public final ImageView ivMenu;
+
+  @NonNull
+  public final LinearProgressIndicator progressBudget;
+
+  @NonNull
+  public final RecyclerView rvTransactions;
+
+  @NonNull
+  public final TextView tvAppName;
+
+  @NonNull
+  public final TextView tvBudgetLabel;
+
+  @NonNull
+  public final TextView tvPortfolioLabel;
+
+  @NonNull
+  public final TextView tvRecentLabel;
+
+  @NonNull
+  public final TextView tvSpendingLabel;
+
+  @NonNull
+  public final TextView tvSpendingValue;
+
+  @NonNull
+  public final TextView tvTotalBalance;
+
+  private FragmentOverviewBinding(@NonNull RelativeLayout rootView,
+      @NonNull MaterialCardView badgeGrowth, @NonNull BottomNavigationView bottomNavigation,
+      @NonNull MaterialCardView cardBudget, @NonNull MaterialCardView cardMonthlySpending,
+      @NonNull FloatingActionButton fabAdd, @NonNull ImageView ivAvatar, @NonNull ImageView ivMenu,
+      @NonNull LinearProgressIndicator progressBudget, @NonNull RecyclerView rvTransactions,
+      @NonNull TextView tvAppName, @NonNull TextView tvBudgetLabel,
+      @NonNull TextView tvPortfolioLabel, @NonNull TextView tvRecentLabel,
+      @NonNull TextView tvSpendingLabel, @NonNull TextView tvSpendingValue,
+      @NonNull TextView tvTotalBalance) {
     this.rootView = rootView;
+    this.badgeGrowth = badgeGrowth;
+    this.bottomNavigation = bottomNavigation;
+    this.cardBudget = cardBudget;
+    this.cardMonthlySpending = cardMonthlySpending;
+    this.fabAdd = fabAdd;
+    this.ivAvatar = ivAvatar;
+    this.ivMenu = ivMenu;
+    this.progressBudget = progressBudget;
+    this.rvTransactions = rvTransactions;
+    this.tvAppName = tvAppName;
+    this.tvBudgetLabel = tvBudgetLabel;
+    this.tvPortfolioLabel = tvPortfolioLabel;
+    this.tvRecentLabel = tvRecentLabel;
+    this.tvSpendingLabel = tvSpendingLabel;
+    this.tvSpendingValue = tvSpendingValue;
+    this.tvTotalBalance = tvTotalBalance;
   }
 
   @Override
   @NonNull
-  public FrameLayout getRoot() {
+  public RelativeLayout getRoot() {
     return rootView;
   }
 
@@ -43,10 +124,112 @@ public final class FragmentOverviewBinding implements ViewBinding {
 
   @NonNull
   public static FragmentOverviewBinding bind(@NonNull View rootView) {
-    if (rootView == null) {
-      throw new NullPointerException("rootView");
-    }
+    // The body of this method is generated in a way you would not otherwise write.
+    // This is done to optimize the compiled bytecode for size and performance.
+    int id;
+    missingId: {
+      id = R.id.badgeGrowth;
+      MaterialCardView badgeGrowth = ViewBindings.findChildViewById(rootView, id);
+      if (badgeGrowth == null) {
+        break missingId;
+      }
 
-    return new FragmentOverviewBinding((FrameLayout) rootView);
+      id = R.id.bottom_navigation;
+      BottomNavigationView bottomNavigation = ViewBindings.findChildViewById(rootView, id);
+      if (bottomNavigation == null) {
+        break missingId;
+      }
+
+      id = R.id.cardBudget;
+      MaterialCardView cardBudget = ViewBindings.findChildViewById(rootView, id);
+      if (cardBudget == null) {
+        break missingId;
+      }
+
+      id = R.id.cardMonthlySpending;
+      MaterialCardView cardMonthlySpending = ViewBindings.findChildViewById(rootView, id);
+      if (cardMonthlySpending == null) {
+        break missingId;
+      }
+
+      id = R.id.fabAdd;
+      FloatingActionButton fabAdd = ViewBindings.findChildViewById(rootView, id);
+      if (fabAdd == null) {
+        break missingId;
+      }
+
+      id = R.id.ivAvatar;
+      ImageView ivAvatar = ViewBindings.findChildViewById(rootView, id);
+      if (ivAvatar == null) {
+        break missingId;
+      }
+
+      id = R.id.ivMenu;
+      ImageView ivMenu = ViewBindings.findChildViewById(rootView, id);
+      if (ivMenu == null) {
+        break missingId;
+      }
+
+      id = R.id.progressBudget;
+      LinearProgressIndicator progressBudget = ViewBindings.findChildViewById(rootView, id);
+      if (progressBudget == null) {
+        break missingId;
+      }
+
+      id = R.id.rvTransactions;
+      RecyclerView rvTransactions = ViewBindings.findChildViewById(rootView, id);
+      if (rvTransactions == null) {
+        break missingId;
+      }
+
+      id = R.id.tvAppName;
+      TextView tvAppName = ViewBindings.findChildViewById(rootView, id);
+      if (tvAppName == null) {
+        break missingId;
+      }
+
+      id = R.id.tvBudgetLabel;
+      TextView tvBudgetLabel = ViewBindings.findChildViewById(rootView, id);
+      if (tvBudgetLabel == null) {
+        break missingId;
+      }
+
+      id = R.id.tvPortfolioLabel;
+      TextView tvPortfolioLabel = ViewBindings.findChildViewById(rootView, id);
+      if (tvPortfolioLabel == null) {
+        break missingId;
+      }
+
+      id = R.id.tvRecentLabel;
+      TextView tvRecentLabel = ViewBindings.findChildViewById(rootView, id);
+      if (tvRecentLabel == null) {
+        break missingId;
+      }
+
+      id = R.id.tvSpendingLabel;
+      TextView tvSpendingLabel = ViewBindings.findChildViewById(rootView, id);
+      if (tvSpendingLabel == null) {
+        break missingId;
+      }
+
+      id = R.id.tvSpendingValue;
+      TextView tvSpendingValue = ViewBindings.findChildViewById(rootView, id);
+      if (tvSpendingValue == null) {
+        break missingId;
+      }
+
+      id = R.id.tvTotalBalance;
+      TextView tvTotalBalance = ViewBindings.findChildViewById(rootView, id);
+      if (tvTotalBalance == null) {
+        break missingId;
+      }
+
+      return new FragmentOverviewBinding((RelativeLayout) rootView, badgeGrowth, bottomNavigation,
+          cardBudget, cardMonthlySpending, fabAdd, ivAvatar, ivMenu, progressBudget, rvTransactions,
+          tvAppName, tvBudgetLabel, tvPortfolioLabel, tvRecentLabel, tvSpendingLabel,
+          tvSpendingValue, tvTotalBalance);
+    }
+    String missingId = rootView.getResources().getResourceName(id);
+    throw new NullPointerException("Missing required view with ID: ".concat(missingId));
   }
 }

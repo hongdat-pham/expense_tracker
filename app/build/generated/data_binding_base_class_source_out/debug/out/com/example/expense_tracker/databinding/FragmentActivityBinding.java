@@ -4,25 +4,84 @@ package com.example.expense_tracker.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
+import androidx.viewbinding.ViewBindings;
 import com.example.expense_tracker.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.lang.NullPointerException;
 import java.lang.Override;
+import java.lang.String;
 
 public final class FragmentActivityBinding implements ViewBinding {
   @NonNull
-  private final FrameLayout rootView;
+  private final ConstraintLayout rootView;
 
-  private FragmentActivityBinding(@NonNull FrameLayout rootView) {
+  @NonNull
+  public final BottomNavigationView bottomNavigation;
+
+  @NonNull
+  public final MaterialCardView cardSearch;
+
+  @NonNull
+  public final Chip chipAll;
+
+  @NonNull
+  public final Chip chipExpenses;
+
+  @NonNull
+  public final ChipGroup chipGroupFilters;
+
+  @NonNull
+  public final Chip chipIncome;
+
+  @NonNull
+  public final Chip chipRecurring;
+
+  @NonNull
+  public final EditText etSearch;
+
+  @NonNull
+  public final FloatingActionButton fabAdd;
+
+  @NonNull
+  public final RecyclerView rvActivity;
+
+  @NonNull
+  public final HorizontalScrollView scrollFilters;
+
+  private FragmentActivityBinding(@NonNull ConstraintLayout rootView,
+      @NonNull BottomNavigationView bottomNavigation, @NonNull MaterialCardView cardSearch,
+      @NonNull Chip chipAll, @NonNull Chip chipExpenses, @NonNull ChipGroup chipGroupFilters,
+      @NonNull Chip chipIncome, @NonNull Chip chipRecurring, @NonNull EditText etSearch,
+      @NonNull FloatingActionButton fabAdd, @NonNull RecyclerView rvActivity,
+      @NonNull HorizontalScrollView scrollFilters) {
     this.rootView = rootView;
+    this.bottomNavigation = bottomNavigation;
+    this.cardSearch = cardSearch;
+    this.chipAll = chipAll;
+    this.chipExpenses = chipExpenses;
+    this.chipGroupFilters = chipGroupFilters;
+    this.chipIncome = chipIncome;
+    this.chipRecurring = chipRecurring;
+    this.etSearch = etSearch;
+    this.fabAdd = fabAdd;
+    this.rvActivity = rvActivity;
+    this.scrollFilters = scrollFilters;
   }
 
   @Override
   @NonNull
-  public FrameLayout getRoot() {
+  public ConstraintLayout getRoot() {
     return rootView;
   }
 
@@ -43,10 +102,81 @@ public final class FragmentActivityBinding implements ViewBinding {
 
   @NonNull
   public static FragmentActivityBinding bind(@NonNull View rootView) {
-    if (rootView == null) {
-      throw new NullPointerException("rootView");
-    }
+    // The body of this method is generated in a way you would not otherwise write.
+    // This is done to optimize the compiled bytecode for size and performance.
+    int id;
+    missingId: {
+      id = R.id.bottom_navigation;
+      BottomNavigationView bottomNavigation = ViewBindings.findChildViewById(rootView, id);
+      if (bottomNavigation == null) {
+        break missingId;
+      }
 
-    return new FragmentActivityBinding((FrameLayout) rootView);
+      id = R.id.cardSearch;
+      MaterialCardView cardSearch = ViewBindings.findChildViewById(rootView, id);
+      if (cardSearch == null) {
+        break missingId;
+      }
+
+      id = R.id.chipAll;
+      Chip chipAll = ViewBindings.findChildViewById(rootView, id);
+      if (chipAll == null) {
+        break missingId;
+      }
+
+      id = R.id.chipExpenses;
+      Chip chipExpenses = ViewBindings.findChildViewById(rootView, id);
+      if (chipExpenses == null) {
+        break missingId;
+      }
+
+      id = R.id.chipGroupFilters;
+      ChipGroup chipGroupFilters = ViewBindings.findChildViewById(rootView, id);
+      if (chipGroupFilters == null) {
+        break missingId;
+      }
+
+      id = R.id.chipIncome;
+      Chip chipIncome = ViewBindings.findChildViewById(rootView, id);
+      if (chipIncome == null) {
+        break missingId;
+      }
+
+      id = R.id.chipRecurring;
+      Chip chipRecurring = ViewBindings.findChildViewById(rootView, id);
+      if (chipRecurring == null) {
+        break missingId;
+      }
+
+      id = R.id.etSearch;
+      EditText etSearch = ViewBindings.findChildViewById(rootView, id);
+      if (etSearch == null) {
+        break missingId;
+      }
+
+      id = R.id.fabAdd;
+      FloatingActionButton fabAdd = ViewBindings.findChildViewById(rootView, id);
+      if (fabAdd == null) {
+        break missingId;
+      }
+
+      id = R.id.rvActivity;
+      RecyclerView rvActivity = ViewBindings.findChildViewById(rootView, id);
+      if (rvActivity == null) {
+        break missingId;
+      }
+
+      id = R.id.scrollFilters;
+      HorizontalScrollView scrollFilters = ViewBindings.findChildViewById(rootView, id);
+      if (scrollFilters == null) {
+        break missingId;
+      }
+
+      return new FragmentActivityBinding((ConstraintLayout) rootView, bottomNavigation, cardSearch,
+          chipAll, chipExpenses, chipGroupFilters, chipIncome, chipRecurring, etSearch, fabAdd,
+          rvActivity, scrollFilters);
+    }
+    String missingId = rootView.getResources().getResourceName(id);
+    throw new NullPointerException("Missing required view with ID: ".concat(missingId));
   }
 }

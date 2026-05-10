@@ -5,24 +5,97 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
+import androidx.viewbinding.ViewBindings;
 import com.example.expense_tracker.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.card.MaterialCardView;
 import java.lang.NullPointerException;
 import java.lang.Override;
+import java.lang.String;
 
 public final class FragmentActivityDetailBinding implements ViewBinding {
   @NonNull
-  private final FrameLayout rootView;
+  private final RelativeLayout rootView;
 
-  private FragmentActivityDetailBinding(@NonNull FrameLayout rootView) {
+  @NonNull
+  public final BottomNavigationView bottomNavigation;
+
+  @NonNull
+  public final MaterialCardView cardInfo;
+
+  @NonNull
+  public final MaterialCardView cardReceipt;
+
+  @NonNull
+  public final FrameLayout iconContainer;
+
+  @NonNull
+  public final ImageView ivBack;
+
+  @NonNull
+  public final ImageView ivMore;
+
+  @NonNull
+  public final ImageView ivReceipt;
+
+  @NonNull
+  public final ImageView ivShare;
+
+  @NonNull
+  public final TextView lblCategory;
+
+  @NonNull
+  public final TextView lblDate;
+
+  @NonNull
+  public final TextView lblPayment;
+
+  @NonNull
+  public final TextView tvAmount;
+
+  @NonNull
+  public final TextView tvMerchant;
+
+  @NonNull
+  public final TextView tvReceiptLabel;
+
+  @NonNull
+  public final TextView tvTitle;
+
+  private FragmentActivityDetailBinding(@NonNull RelativeLayout rootView,
+      @NonNull BottomNavigationView bottomNavigation, @NonNull MaterialCardView cardInfo,
+      @NonNull MaterialCardView cardReceipt, @NonNull FrameLayout iconContainer,
+      @NonNull ImageView ivBack, @NonNull ImageView ivMore, @NonNull ImageView ivReceipt,
+      @NonNull ImageView ivShare, @NonNull TextView lblCategory, @NonNull TextView lblDate,
+      @NonNull TextView lblPayment, @NonNull TextView tvAmount, @NonNull TextView tvMerchant,
+      @NonNull TextView tvReceiptLabel, @NonNull TextView tvTitle) {
     this.rootView = rootView;
+    this.bottomNavigation = bottomNavigation;
+    this.cardInfo = cardInfo;
+    this.cardReceipt = cardReceipt;
+    this.iconContainer = iconContainer;
+    this.ivBack = ivBack;
+    this.ivMore = ivMore;
+    this.ivReceipt = ivReceipt;
+    this.ivShare = ivShare;
+    this.lblCategory = lblCategory;
+    this.lblDate = lblDate;
+    this.lblPayment = lblPayment;
+    this.tvAmount = tvAmount;
+    this.tvMerchant = tvMerchant;
+    this.tvReceiptLabel = tvReceiptLabel;
+    this.tvTitle = tvTitle;
   }
 
   @Override
   @NonNull
-  public FrameLayout getRoot() {
+  public RelativeLayout getRoot() {
     return rootView;
   }
 
@@ -43,10 +116,105 @@ public final class FragmentActivityDetailBinding implements ViewBinding {
 
   @NonNull
   public static FragmentActivityDetailBinding bind(@NonNull View rootView) {
-    if (rootView == null) {
-      throw new NullPointerException("rootView");
-    }
+    // The body of this method is generated in a way you would not otherwise write.
+    // This is done to optimize the compiled bytecode for size and performance.
+    int id;
+    missingId: {
+      id = R.id.bottom_navigation;
+      BottomNavigationView bottomNavigation = ViewBindings.findChildViewById(rootView, id);
+      if (bottomNavigation == null) {
+        break missingId;
+      }
 
-    return new FragmentActivityDetailBinding((FrameLayout) rootView);
+      id = R.id.cardInfo;
+      MaterialCardView cardInfo = ViewBindings.findChildViewById(rootView, id);
+      if (cardInfo == null) {
+        break missingId;
+      }
+
+      id = R.id.cardReceipt;
+      MaterialCardView cardReceipt = ViewBindings.findChildViewById(rootView, id);
+      if (cardReceipt == null) {
+        break missingId;
+      }
+
+      id = R.id.iconContainer;
+      FrameLayout iconContainer = ViewBindings.findChildViewById(rootView, id);
+      if (iconContainer == null) {
+        break missingId;
+      }
+
+      id = R.id.ivBack;
+      ImageView ivBack = ViewBindings.findChildViewById(rootView, id);
+      if (ivBack == null) {
+        break missingId;
+      }
+
+      id = R.id.ivMore;
+      ImageView ivMore = ViewBindings.findChildViewById(rootView, id);
+      if (ivMore == null) {
+        break missingId;
+      }
+
+      id = R.id.ivReceipt;
+      ImageView ivReceipt = ViewBindings.findChildViewById(rootView, id);
+      if (ivReceipt == null) {
+        break missingId;
+      }
+
+      id = R.id.ivShare;
+      ImageView ivShare = ViewBindings.findChildViewById(rootView, id);
+      if (ivShare == null) {
+        break missingId;
+      }
+
+      id = R.id.lblCategory;
+      TextView lblCategory = ViewBindings.findChildViewById(rootView, id);
+      if (lblCategory == null) {
+        break missingId;
+      }
+
+      id = R.id.lblDate;
+      TextView lblDate = ViewBindings.findChildViewById(rootView, id);
+      if (lblDate == null) {
+        break missingId;
+      }
+
+      id = R.id.lblPayment;
+      TextView lblPayment = ViewBindings.findChildViewById(rootView, id);
+      if (lblPayment == null) {
+        break missingId;
+      }
+
+      id = R.id.tvAmount;
+      TextView tvAmount = ViewBindings.findChildViewById(rootView, id);
+      if (tvAmount == null) {
+        break missingId;
+      }
+
+      id = R.id.tvMerchant;
+      TextView tvMerchant = ViewBindings.findChildViewById(rootView, id);
+      if (tvMerchant == null) {
+        break missingId;
+      }
+
+      id = R.id.tvReceiptLabel;
+      TextView tvReceiptLabel = ViewBindings.findChildViewById(rootView, id);
+      if (tvReceiptLabel == null) {
+        break missingId;
+      }
+
+      id = R.id.tvTitle;
+      TextView tvTitle = ViewBindings.findChildViewById(rootView, id);
+      if (tvTitle == null) {
+        break missingId;
+      }
+
+      return new FragmentActivityDetailBinding((RelativeLayout) rootView, bottomNavigation,
+          cardInfo, cardReceipt, iconContainer, ivBack, ivMore, ivReceipt, ivShare, lblCategory,
+          lblDate, lblPayment, tvAmount, tvMerchant, tvReceiptLabel, tvTitle);
+    }
+    String missingId = rootView.getResources().getResourceName(id);
+    throw new NullPointerException("Missing required view with ID: ".concat(missingId));
   }
 }
