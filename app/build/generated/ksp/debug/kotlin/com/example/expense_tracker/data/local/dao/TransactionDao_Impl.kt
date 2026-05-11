@@ -16,6 +16,7 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
+import kotlin.Unit
 import kotlin.collections.List
 import kotlin.collections.MutableList
 import kotlin.collections.mutableListOf
@@ -66,6 +67,11 @@ public class TransactionDao_Impl(
     val _result: Long = __insertAdapterOfTransactionEntity.insertAndReturnId(_connection,
         transaction)
     _result
+  }
+
+  public override suspend fun insertAll(transactions: List<TransactionEntity>): Unit =
+      performSuspending(__db, false, true) { _connection ->
+    __insertAdapterOfTransactionEntity.insert(_connection, transactions)
   }
 
   public override fun getAllTransactionsByUser(userId: Long): Flow<List<TransactionEntity>> {

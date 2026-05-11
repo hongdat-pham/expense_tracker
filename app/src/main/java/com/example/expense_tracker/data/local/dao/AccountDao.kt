@@ -24,4 +24,6 @@ interface AccountDao {
 
     @Query("UPDATE accounts SET isActive = 0 WHERE id = :accountId")
     suspend fun deactivateAccount(accountId: Long)
+    @Query("SELECT * FROM accounts LIMIT 1")
+    suspend fun getFirstAccount(): AccountEntity?
 }

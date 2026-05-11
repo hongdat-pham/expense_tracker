@@ -135,4 +135,6 @@ interface TransactionDao {
     /** Single transaction by ID — ActivityDetail */
     @Query("SELECT * FROM transactions WHERE id = :transactionId LIMIT 1")
     suspend fun getTransactionById(transactionId: Long): TransactionEntity?
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(transactions: List<TransactionEntity>)
 }

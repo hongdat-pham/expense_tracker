@@ -107,6 +107,36 @@ public class UserDao_Impl(
     }
   }
 
+  public override suspend fun getFirstUser(): UserEntity? {
+    val _sql: String = "SELECT * FROM users LIMIT 1"
+    return performSuspending(__db, true, false) { _connection ->
+      val _stmt: SQLiteStatement = _connection.prepare(_sql)
+      try {
+        val _columnIndexOfId: Int = getColumnIndexOrThrow(_stmt, "id")
+        val _columnIndexOfFullName: Int = getColumnIndexOrThrow(_stmt, "fullName")
+        val _columnIndexOfEmail: Int = getColumnIndexOrThrow(_stmt, "email")
+        val _columnIndexOfPasswordHash: Int = getColumnIndexOrThrow(_stmt, "passwordHash")
+        val _result: UserEntity?
+        if (_stmt.step()) {
+          val _tmpId: Long
+          _tmpId = _stmt.getLong(_columnIndexOfId)
+          val _tmpFullName: String
+          _tmpFullName = _stmt.getText(_columnIndexOfFullName)
+          val _tmpEmail: String
+          _tmpEmail = _stmt.getText(_columnIndexOfEmail)
+          val _tmpPasswordHash: String
+          _tmpPasswordHash = _stmt.getText(_columnIndexOfPasswordHash)
+          _result = UserEntity(_tmpId,_tmpFullName,_tmpEmail,_tmpPasswordHash)
+        } else {
+          _result = null
+        }
+        _result
+      } finally {
+        _stmt.close()
+      }
+    }
+  }
+
   public companion object {
     public fun getRequiredConverters(): List<KClass<*>> = emptyList()
   }

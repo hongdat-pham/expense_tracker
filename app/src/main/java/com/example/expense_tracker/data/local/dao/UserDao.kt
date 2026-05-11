@@ -17,4 +17,6 @@ interface UserDao {
     // Add this query — required by UserRepository.getCurrentUser()
     @Query("SELECT * FROM users WHERE id = :userId LIMIT 1")
     suspend fun getUserById(userId: Long): UserEntity?
+    @Query("SELECT * FROM users LIMIT 1")
+    suspend fun getFirstUser(): UserEntity?
 }

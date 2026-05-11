@@ -150,6 +150,50 @@ public class AccountDao_Impl(
     }
   }
 
+  public override suspend fun getFirstAccount(): AccountEntity? {
+    val _sql: String = "SELECT * FROM accounts LIMIT 1"
+    return performSuspending(__db, true, false) { _connection ->
+      val _stmt: SQLiteStatement = _connection.prepare(_sql)
+      try {
+        val _columnIndexOfId: Int = getColumnIndexOrThrow(_stmt, "id")
+        val _columnIndexOfUserId: Int = getColumnIndexOrThrow(_stmt, "userId")
+        val _columnIndexOfName: Int = getColumnIndexOrThrow(_stmt, "name")
+        val _columnIndexOfLastFourDigits: Int = getColumnIndexOrThrow(_stmt, "lastFourDigits")
+        val _columnIndexOfType: Int = getColumnIndexOrThrow(_stmt, "type")
+        val _columnIndexOfBalance: Int = getColumnIndexOrThrow(_stmt, "balance")
+        val _columnIndexOfIsActive: Int = getColumnIndexOrThrow(_stmt, "isActive")
+        val _result: AccountEntity?
+        if (_stmt.step()) {
+          val _tmpId: Long
+          _tmpId = _stmt.getLong(_columnIndexOfId)
+          val _tmpUserId: Long
+          _tmpUserId = _stmt.getLong(_columnIndexOfUserId)
+          val _tmpName: String
+          _tmpName = _stmt.getText(_columnIndexOfName)
+          val _tmpLastFourDigits: String
+          _tmpLastFourDigits = _stmt.getText(_columnIndexOfLastFourDigits)
+          val _tmpType: AccountType
+          val _tmp: String
+          _tmp = _stmt.getText(_columnIndexOfType)
+          _tmpType = __converters.toAccountType(_tmp)
+          val _tmpBalance: Double
+          _tmpBalance = _stmt.getDouble(_columnIndexOfBalance)
+          val _tmpIsActive: Boolean
+          val _tmp_1: Int
+          _tmp_1 = _stmt.getLong(_columnIndexOfIsActive).toInt()
+          _tmpIsActive = _tmp_1 != 0
+          _result =
+              AccountEntity(_tmpId,_tmpUserId,_tmpName,_tmpLastFourDigits,_tmpType,_tmpBalance,_tmpIsActive)
+        } else {
+          _result = null
+        }
+        _result
+      } finally {
+        _stmt.close()
+      }
+    }
+  }
+
   public override suspend fun updateBalance(accountId: Long, newBalance: Double) {
     val _sql: String = "UPDATE accounts SET balance = ? WHERE id = ?"
     return performSuspending(__db, false, true) { _connection ->

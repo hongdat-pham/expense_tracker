@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.expense_tracker.app-mergeDebugResources-50:/values-night-v8/values-night-v8.xml",
+            "outputFile": "C:\\Users\\84916\\.gradle\\daemon\\9.1.0\\com.example.expense_tracker.app-mergeDebugResources-50:\\values-night-v8\\values-night-v8.xml",
             "map": [
                 {
                     "source": "C:\\Users\\84916\\.gradle\\caches\\9.1.0\\transforms\\17b01a31eb0f45ece14a98cf140c0204\\workspace\\transformed\\appcompat-1.7.0\\res\\values-night-v8\\values-night-v8.xml",
@@ -54,6 +54,60 @@
                         "endLines": "21",
                         "endColumns": "12",
                         "endOffsets": "1270"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "com.example.expense_tracker.app-mergeDebugResources-50:/values-night-v8/values-night-v8.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\84916\\.gradle\\caches\\9.1.0\\transforms\\17b01a31eb0f45ece14a98cf140c0204\\workspace\\transformed\\appcompat-1.7.0\\res\\values-night-v8\\values-night-v8.xml",
+                    "from": {
+                        "startLines": "-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startColumns": "-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startOffsets": "-1,-1,-1,-1,-1,-1,-1,-1"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,48",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,125,209,293,389,491,593,4161",
+                        "endColumns": "69,83,83,95,101,101,93,88",
+                        "endOffsets": "120,204,288,384,486,588,682,4245"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\84916\\.gradle\\caches\\9.1.0\\transforms\\458685eee5e017aeaf2cc422450418f0\\workspace\\transformed\\material-1.12.0\\res\\values-night-v8\\values-night-v8.xml",
+                    "from": {
+                        "startLines": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startColumns": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startOffsets": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"
+                    },
+                    "to": {
+                        "startLines": "22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,49,50,51,52,53,54,55,56",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "1273,1348,1459,1548,1649,1756,1863,1962,2069,2172,2299,2387,2511,2613,2715,2831,2933,3047,3175,3291,3413,3549,3669,3803,3923,4035,4250,4367,4491,4621,4743,4881,5015,5131",
+                        "endColumns": "74,110,88,100,106,106,98,106,102,126,87,123,101,101,115,101,113,127,115,121,135,119,133,119,111,125,116,123,129,121,137,133,115,119",
+                        "endOffsets": "1343,1454,1543,1644,1751,1858,1957,2064,2167,2294,2382,2506,2608,2710,2826,2928,3042,3170,3286,3408,3544,3664,3798,3918,4030,4156,4362,4486,4616,4738,4876,5010,5126,5246"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\84916\\AndroidStudioProjects\\Expense_tracker\\app\\src\\main\\res\\values-night\\themes.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "100",
+                        "endLines": "14",
+                        "endColumns": "12",
+                        "endOffsets": "802"
+                    },
+                    "to": {
+                        "startLines": "9",
+                        "startColumns": "4",
+                        "startOffsets": "687",
+                        "endLines": "21",
+                        "endColumns": "12",
+                        "endOffsets": "1268"
                     }
                 }
             ]
