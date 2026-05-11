@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- item_intensity_report.xml — one category row in the Intensity Report section -->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    app:cardBackgroundColor="@color/surface_container_lowest"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <!-- Icon container -->
+        <ImageView
+            android:id="@+id/ivCategoryIcon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_category_icon"
+            android:padding="12dp"
+            android:src="@drawable/ic_home"
+            app:tint="@color/primary" />
+
+        <!-- Name + percent label -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvIntensityCategoryName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:textColor="@color/on_surface"
+                android:textSize="14sp"
+                tools:text="Housing &amp; Rent" />
+
+            <TextView
+                android:id="@+id/tvIntensityPercent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="11sp"
+                tools:text="42% of total" />
+
+        </LinearLayout>
+
+        <!-- Amount + mini progress bar -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvIntensityAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/manrope_extra_bold"
+                android:textColor="@color/on_surface"
+                android:textSize="16sp"
+                tools:text="$2,100.00" />
+
+            <!-- Mini progress bar (80dp wide) -->
+            <FrameLayout
+                android:layout_width="80dp"
+                android:layout_height="6dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/bg_progress_track">
+
+                <View
+                    android:id="@+id/viewProgressFill"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_progress_fill"
+                    tools:layout_width="50dp" />
+
+            </FrameLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

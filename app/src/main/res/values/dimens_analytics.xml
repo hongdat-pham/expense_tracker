@@ -1,0 +1,5 @@
+<!-- res/values/dimens.xml — add this entry if it doesn't already exist -->
+<resources>
+    <!-- Used by IntensityAdapter to scale the mini progress bar -->
+    <dimen name="intensity_bar_max_width">80dp</dimen>
+</resources>
