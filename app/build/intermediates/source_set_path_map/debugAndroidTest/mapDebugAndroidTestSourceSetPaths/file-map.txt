@@ -1,5 +1,5 @@
-com.example.expense_tracker.test.app-core-1.6.1-0 C:\Users\84916\.gradle\caches\9.1.0\transforms\6e04c0b58e5d3184a16e3d342758e266\workspace\transformed\core-1.6.1\res
-com.example.expense_tracker.test.app-tracing-1.2.0-1 C:\Users\84916\.gradle\caches\9.1.0\transforms\9cb4950f7b2009958fb6d93367772977\workspace\transformed\tracing-1.2.0\res
+com.example.expense_tracker.test.app-tracing-1.2.0-0 C:\Users\84916\.gradle\caches\9.1.0\transforms\4792224dca2ef8b775b9950880c424ad\workspace\transformed\tracing-1.2.0\res
+com.example.expense_tracker.test.app-core-1.6.1-1 C:\Users\84916\.gradle\caches\9.1.0\transforms\bfbb837d88b8528efb96442b2b5ec86b\workspace\transformed\core-1.6.1\res
 com.example.expense_tracker.test.app-androidTest-2 C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\build\generated\res\resValues\androidTest\debug
 com.example.expense_tracker.test.app-mergeDebugAndroidTestResources-3 C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
 com.example.expense_tracker.test.app-mergeDebugAndroidTestResources-4 C:\Users\84916\AndroidStudioProjects\Expense_tracker\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir

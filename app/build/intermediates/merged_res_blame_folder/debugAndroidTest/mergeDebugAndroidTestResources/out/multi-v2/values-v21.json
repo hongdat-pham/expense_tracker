@@ -4,7 +4,7 @@
             "outputFile": "com.example.expense_tracker.test.app-mergeDebugAndroidTestResources-3:/values-v21/values-v21.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\84916\\.gradle\\caches\\9.1.0\\transforms\\6e04c0b58e5d3184a16e3d342758e266\\workspace\\transformed\\core-1.6.1\\res\\values-v21\\values.xml",
+                    "source": "C:\\Users\\84916\\.gradle\\caches\\9.1.0\\transforms\\bfbb837d88b8528efb96442b2b5ec86b\\workspace\\transformed\\core-1.6.1\\res\\values-v21\\values.xml",
                     "from": {
                         "startLines": "4,13",
                         "startColumns": "0,0",

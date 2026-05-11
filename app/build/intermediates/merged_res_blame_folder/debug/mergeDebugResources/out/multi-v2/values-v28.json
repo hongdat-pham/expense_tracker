@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.expense_tracker.app-mergeDebugResources-52:/values-v28/values-v28.xml",
+            "outputFile": "com.example.expense_tracker.app-mergeDebugResources-50:/values-v28/values-v28.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\84916\\.gradle\\caches\\9.1.0\\transforms\\12b5e0d47ee0fad2635d3fe3eb2e862f\\workspace\\transformed\\appcompat-1.7.0\\res\\values-v28\\values-v28.xml",
+                    "source": "C:\\Users\\84916\\.gradle\\caches\\9.1.0\\transforms\\17b01a31eb0f45ece14a98cf140c0204\\workspace\\transformed\\appcompat-1.7.0\\res\\values-v28\\values-v28.xml",
                     "from": {
                         "startLines": "2,3,4,8",
                         "startColumns": "4,4,4,4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\84916\\.gradle\\caches\\9.1.0\\transforms\\764f6978973330f2d61ae400da5b3e2c\\workspace\\transformed\\material-1.12.0\\res\\values-v28\\values-v28.xml",
+                    "source": "C:\\Users\\84916\\.gradle\\caches\\9.1.0\\transforms\\458685eee5e017aeaf2cc422450418f0\\workspace\\transformed\\material-1.12.0\\res\\values-v28\\values-v28.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",

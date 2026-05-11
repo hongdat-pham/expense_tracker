@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.expense_tracker.app-mergeDebugResources-52:/values-port/values-port.xml",
+            "outputFile": "com.example.expense_tracker.app-mergeDebugResources-50:/values-port/values-port.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\84916\\.gradle\\caches\\9.1.0\\transforms\\12b5e0d47ee0fad2635d3fe3eb2e862f\\workspace\\transformed\\appcompat-1.7.0\\res\\values-port\\values-port.xml",
+                    "source": "C:\\Users\\84916\\.gradle\\caches\\9.1.0\\transforms\\17b01a31eb0f45ece14a98cf140c0204\\workspace\\transformed\\appcompat-1.7.0\\res\\values-port\\values-port.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

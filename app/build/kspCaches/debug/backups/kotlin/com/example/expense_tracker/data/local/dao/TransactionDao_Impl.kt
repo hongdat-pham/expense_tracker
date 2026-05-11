@@ -68,84 +68,6 @@ public class TransactionDao_Impl(
     _result
   }
 
-  public override fun getTransactionsByUserAndMonth(
-    userId: Long,
-    month: Int,
-    year: String,
-  ): Flow<List<TransactionEntity>> {
-    val _sql: String = """
-        |
-        |        SELECT * FROM transactions
-        |        WHERE userId = ?
-        |          AND strftime('%m', date / 1000, 'unixepoch') = printf('%02d', ?)
-        |          AND strftime('%Y', date / 1000, 'unixepoch') = ?
-        |        ORDER BY date DESC
-        |    
-        """.trimMargin()
-    return createFlow(__db, false, arrayOf("transactions")) { _connection ->
-      val _stmt: SQLiteStatement = _connection.prepare(_sql)
-      try {
-        var _argIndex: Int = 1
-        _stmt.bindLong(_argIndex, userId)
-        _argIndex = 2
-        _stmt.bindLong(_argIndex, month.toLong())
-        _argIndex = 3
-        _stmt.bindText(_argIndex, year)
-        val _columnIndexOfId: Int = getColumnIndexOrThrow(_stmt, "id")
-        val _columnIndexOfUserId: Int = getColumnIndexOrThrow(_stmt, "userId")
-        val _columnIndexOfAccountId: Int = getColumnIndexOrThrow(_stmt, "accountId")
-        val _columnIndexOfCategoryId: Int = getColumnIndexOrThrow(_stmt, "categoryId")
-        val _columnIndexOfAmount: Int = getColumnIndexOrThrow(_stmt, "amount")
-        val _columnIndexOfType: Int = getColumnIndexOrThrow(_stmt, "type")
-        val _columnIndexOfDate: Int = getColumnIndexOrThrow(_stmt, "date")
-        val _columnIndexOfDescription: Int = getColumnIndexOrThrow(_stmt, "description")
-        val _columnIndexOfReceiptPath: Int = getColumnIndexOrThrow(_stmt, "receiptPath")
-        val _columnIndexOfIsRecurring: Int = getColumnIndexOrThrow(_stmt, "isRecurring")
-        val _columnIndexOfCreatedAt: Int = getColumnIndexOrThrow(_stmt, "createdAt")
-        val _result: MutableList<TransactionEntity> = mutableListOf()
-        while (_stmt.step()) {
-          val _item: TransactionEntity
-          val _tmpId: Long
-          _tmpId = _stmt.getLong(_columnIndexOfId)
-          val _tmpUserId: Long
-          _tmpUserId = _stmt.getLong(_columnIndexOfUserId)
-          val _tmpAccountId: Long
-          _tmpAccountId = _stmt.getLong(_columnIndexOfAccountId)
-          val _tmpCategoryId: String
-          _tmpCategoryId = _stmt.getText(_columnIndexOfCategoryId)
-          val _tmpAmount: Double
-          _tmpAmount = _stmt.getDouble(_columnIndexOfAmount)
-          val _tmpType: TransactionType
-          val _tmp: String
-          _tmp = _stmt.getText(_columnIndexOfType)
-          _tmpType = __converters.toTransactionType(_tmp)
-          val _tmpDate: Long
-          _tmpDate = _stmt.getLong(_columnIndexOfDate)
-          val _tmpDescription: String
-          _tmpDescription = _stmt.getText(_columnIndexOfDescription)
-          val _tmpReceiptPath: String?
-          if (_stmt.isNull(_columnIndexOfReceiptPath)) {
-            _tmpReceiptPath = null
-          } else {
-            _tmpReceiptPath = _stmt.getText(_columnIndexOfReceiptPath)
-          }
-          val _tmpIsRecurring: Boolean
-          val _tmp_1: Int
-          _tmp_1 = _stmt.getLong(_columnIndexOfIsRecurring).toInt()
-          _tmpIsRecurring = _tmp_1 != 0
-          val _tmpCreatedAt: Long
-          _tmpCreatedAt = _stmt.getLong(_columnIndexOfCreatedAt)
-          _item =
-              TransactionEntity(_tmpId,_tmpUserId,_tmpAccountId,_tmpCategoryId,_tmpAmount,_tmpType,_tmpDate,_tmpDescription,_tmpReceiptPath,_tmpIsRecurring,_tmpCreatedAt)
-          _result.add(_item)
-        }
-        _result
-      } finally {
-        _stmt.close()
-      }
-    }
-  }
-
   public override fun getAllTransactionsByUser(userId: Long): Flow<List<TransactionEntity>> {
     val _sql: String = "SELECT * FROM transactions WHERE userId = ? ORDER BY date DESC"
     return createFlow(__db, false, arrayOf("transactions")) { _connection ->
@@ -212,8 +134,10 @@ public class TransactionDao_Impl(
       Flow<List<TransactionEntity>> {
     val _sql: String = """
         |
-        |        SELECT * FROM transactions WHERE userId = ? 
-        |        ORDER BY date DESC LIMIT ?
+        |        SELECT * FROM transactions
+        |        WHERE userId = ?
+        |        ORDER BY date DESC
+        |        LIMIT ?
         |    
         """.trimMargin()
     return createFlow(__db, false, arrayOf("transactions")) { _connection ->
@@ -278,12 +202,91 @@ public class TransactionDao_Impl(
     }
   }
 
+  public override fun getTransactionsByUserAndMonth(
+    userId: Long,
+    month: Int,
+    year: Int,
+  ): Flow<List<TransactionEntity>> {
+    val _sql: String = """
+        |
+        |        SELECT * FROM transactions
+        |        WHERE userId = ?
+        |          AND strftime('%m', date / 1000, 'unixepoch') = printf('%02d', ?)
+        |          AND strftime('%Y', date / 1000, 'unixepoch') = printf('%04d', ?)
+        |        ORDER BY date DESC
+        |    
+        """.trimMargin()
+    return createFlow(__db, false, arrayOf("transactions")) { _connection ->
+      val _stmt: SQLiteStatement = _connection.prepare(_sql)
+      try {
+        var _argIndex: Int = 1
+        _stmt.bindLong(_argIndex, userId)
+        _argIndex = 2
+        _stmt.bindLong(_argIndex, month.toLong())
+        _argIndex = 3
+        _stmt.bindLong(_argIndex, year.toLong())
+        val _columnIndexOfId: Int = getColumnIndexOrThrow(_stmt, "id")
+        val _columnIndexOfUserId: Int = getColumnIndexOrThrow(_stmt, "userId")
+        val _columnIndexOfAccountId: Int = getColumnIndexOrThrow(_stmt, "accountId")
+        val _columnIndexOfCategoryId: Int = getColumnIndexOrThrow(_stmt, "categoryId")
+        val _columnIndexOfAmount: Int = getColumnIndexOrThrow(_stmt, "amount")
+        val _columnIndexOfType: Int = getColumnIndexOrThrow(_stmt, "type")
+        val _columnIndexOfDate: Int = getColumnIndexOrThrow(_stmt, "date")
+        val _columnIndexOfDescription: Int = getColumnIndexOrThrow(_stmt, "description")
+        val _columnIndexOfReceiptPath: Int = getColumnIndexOrThrow(_stmt, "receiptPath")
+        val _columnIndexOfIsRecurring: Int = getColumnIndexOrThrow(_stmt, "isRecurring")
+        val _columnIndexOfCreatedAt: Int = getColumnIndexOrThrow(_stmt, "createdAt")
+        val _result: MutableList<TransactionEntity> = mutableListOf()
+        while (_stmt.step()) {
+          val _item: TransactionEntity
+          val _tmpId: Long
+          _tmpId = _stmt.getLong(_columnIndexOfId)
+          val _tmpUserId: Long
+          _tmpUserId = _stmt.getLong(_columnIndexOfUserId)
+          val _tmpAccountId: Long
+          _tmpAccountId = _stmt.getLong(_columnIndexOfAccountId)
+          val _tmpCategoryId: String
+          _tmpCategoryId = _stmt.getText(_columnIndexOfCategoryId)
+          val _tmpAmount: Double
+          _tmpAmount = _stmt.getDouble(_columnIndexOfAmount)
+          val _tmpType: TransactionType
+          val _tmp: String
+          _tmp = _stmt.getText(_columnIndexOfType)
+          _tmpType = __converters.toTransactionType(_tmp)
+          val _tmpDate: Long
+          _tmpDate = _stmt.getLong(_columnIndexOfDate)
+          val _tmpDescription: String
+          _tmpDescription = _stmt.getText(_columnIndexOfDescription)
+          val _tmpReceiptPath: String?
+          if (_stmt.isNull(_columnIndexOfReceiptPath)) {
+            _tmpReceiptPath = null
+          } else {
+            _tmpReceiptPath = _stmt.getText(_columnIndexOfReceiptPath)
+          }
+          val _tmpIsRecurring: Boolean
+          val _tmp_1: Int
+          _tmp_1 = _stmt.getLong(_columnIndexOfIsRecurring).toInt()
+          _tmpIsRecurring = _tmp_1 != 0
+          val _tmpCreatedAt: Long
+          _tmpCreatedAt = _stmt.getLong(_columnIndexOfCreatedAt)
+          _item =
+              TransactionEntity(_tmpId,_tmpUserId,_tmpAccountId,_tmpCategoryId,_tmpAmount,_tmpType,_tmpDate,_tmpDescription,_tmpReceiptPath,_tmpIsRecurring,_tmpCreatedAt)
+          _result.add(_item)
+        }
+        _result
+      } finally {
+        _stmt.close()
+      }
+    }
+  }
+
   public override fun searchTransactions(userId: Long, query: String):
       Flow<List<TransactionEntity>> {
     val _sql: String = """
         |
         |        SELECT * FROM transactions
-        |        WHERE userId = ? AND description LIKE '%' || ? || '%'
+        |        WHERE userId = ?
+        |          AND description LIKE '%' || ? || '%'
         |        ORDER BY date DESC
         |    
         """.trimMargin()
@@ -489,18 +492,160 @@ public class TransactionDao_Impl(
     }
   }
 
+  public override fun getTransactionsByAccount(accountId: Long): Flow<List<TransactionEntity>> {
+    val _sql: String = "SELECT * FROM transactions WHERE accountId = ? ORDER BY date DESC"
+    return createFlow(__db, false, arrayOf("transactions")) { _connection ->
+      val _stmt: SQLiteStatement = _connection.prepare(_sql)
+      try {
+        var _argIndex: Int = 1
+        _stmt.bindLong(_argIndex, accountId)
+        val _columnIndexOfId: Int = getColumnIndexOrThrow(_stmt, "id")
+        val _columnIndexOfUserId: Int = getColumnIndexOrThrow(_stmt, "userId")
+        val _columnIndexOfAccountId: Int = getColumnIndexOrThrow(_stmt, "accountId")
+        val _columnIndexOfCategoryId: Int = getColumnIndexOrThrow(_stmt, "categoryId")
+        val _columnIndexOfAmount: Int = getColumnIndexOrThrow(_stmt, "amount")
+        val _columnIndexOfType: Int = getColumnIndexOrThrow(_stmt, "type")
+        val _columnIndexOfDate: Int = getColumnIndexOrThrow(_stmt, "date")
+        val _columnIndexOfDescription: Int = getColumnIndexOrThrow(_stmt, "description")
+        val _columnIndexOfReceiptPath: Int = getColumnIndexOrThrow(_stmt, "receiptPath")
+        val _columnIndexOfIsRecurring: Int = getColumnIndexOrThrow(_stmt, "isRecurring")
+        val _columnIndexOfCreatedAt: Int = getColumnIndexOrThrow(_stmt, "createdAt")
+        val _result: MutableList<TransactionEntity> = mutableListOf()
+        while (_stmt.step()) {
+          val _item: TransactionEntity
+          val _tmpId: Long
+          _tmpId = _stmt.getLong(_columnIndexOfId)
+          val _tmpUserId: Long
+          _tmpUserId = _stmt.getLong(_columnIndexOfUserId)
+          val _tmpAccountId: Long
+          _tmpAccountId = _stmt.getLong(_columnIndexOfAccountId)
+          val _tmpCategoryId: String
+          _tmpCategoryId = _stmt.getText(_columnIndexOfCategoryId)
+          val _tmpAmount: Double
+          _tmpAmount = _stmt.getDouble(_columnIndexOfAmount)
+          val _tmpType: TransactionType
+          val _tmp: String
+          _tmp = _stmt.getText(_columnIndexOfType)
+          _tmpType = __converters.toTransactionType(_tmp)
+          val _tmpDate: Long
+          _tmpDate = _stmt.getLong(_columnIndexOfDate)
+          val _tmpDescription: String
+          _tmpDescription = _stmt.getText(_columnIndexOfDescription)
+          val _tmpReceiptPath: String?
+          if (_stmt.isNull(_columnIndexOfReceiptPath)) {
+            _tmpReceiptPath = null
+          } else {
+            _tmpReceiptPath = _stmt.getText(_columnIndexOfReceiptPath)
+          }
+          val _tmpIsRecurring: Boolean
+          val _tmp_1: Int
+          _tmp_1 = _stmt.getLong(_columnIndexOfIsRecurring).toInt()
+          _tmpIsRecurring = _tmp_1 != 0
+          val _tmpCreatedAt: Long
+          _tmpCreatedAt = _stmt.getLong(_columnIndexOfCreatedAt)
+          _item =
+              TransactionEntity(_tmpId,_tmpUserId,_tmpAccountId,_tmpCategoryId,_tmpAmount,_tmpType,_tmpDate,_tmpDescription,_tmpReceiptPath,_tmpIsRecurring,_tmpCreatedAt)
+          _result.add(_item)
+        }
+        _result
+      } finally {
+        _stmt.close()
+      }
+    }
+  }
+
+  public override suspend fun getTransactionsByUserAndMonthOnce(
+    userId: Long,
+    month: Int,
+    year: Int,
+  ): List<TransactionEntity> {
+    val _sql: String = """
+        |
+        |        SELECT * FROM transactions
+        |        WHERE userId = ?
+        |          AND strftime('%m', date / 1000, 'unixepoch') = printf('%02d', ?)
+        |          AND strftime('%Y', date / 1000, 'unixepoch') = printf('%04d', ?)
+        |        ORDER BY date DESC
+        |    
+        """.trimMargin()
+    return performSuspending(__db, true, false) { _connection ->
+      val _stmt: SQLiteStatement = _connection.prepare(_sql)
+      try {
+        var _argIndex: Int = 1
+        _stmt.bindLong(_argIndex, userId)
+        _argIndex = 2
+        _stmt.bindLong(_argIndex, month.toLong())
+        _argIndex = 3
+        _stmt.bindLong(_argIndex, year.toLong())
+        val _columnIndexOfId: Int = getColumnIndexOrThrow(_stmt, "id")
+        val _columnIndexOfUserId: Int = getColumnIndexOrThrow(_stmt, "userId")
+        val _columnIndexOfAccountId: Int = getColumnIndexOrThrow(_stmt, "accountId")
+        val _columnIndexOfCategoryId: Int = getColumnIndexOrThrow(_stmt, "categoryId")
+        val _columnIndexOfAmount: Int = getColumnIndexOrThrow(_stmt, "amount")
+        val _columnIndexOfType: Int = getColumnIndexOrThrow(_stmt, "type")
+        val _columnIndexOfDate: Int = getColumnIndexOrThrow(_stmt, "date")
+        val _columnIndexOfDescription: Int = getColumnIndexOrThrow(_stmt, "description")
+        val _columnIndexOfReceiptPath: Int = getColumnIndexOrThrow(_stmt, "receiptPath")
+        val _columnIndexOfIsRecurring: Int = getColumnIndexOrThrow(_stmt, "isRecurring")
+        val _columnIndexOfCreatedAt: Int = getColumnIndexOrThrow(_stmt, "createdAt")
+        val _result: MutableList<TransactionEntity> = mutableListOf()
+        while (_stmt.step()) {
+          val _item: TransactionEntity
+          val _tmpId: Long
+          _tmpId = _stmt.getLong(_columnIndexOfId)
+          val _tmpUserId: Long
+          _tmpUserId = _stmt.getLong(_columnIndexOfUserId)
+          val _tmpAccountId: Long
+          _tmpAccountId = _stmt.getLong(_columnIndexOfAccountId)
+          val _tmpCategoryId: String
+          _tmpCategoryId = _stmt.getText(_columnIndexOfCategoryId)
+          val _tmpAmount: Double
+          _tmpAmount = _stmt.getDouble(_columnIndexOfAmount)
+          val _tmpType: TransactionType
+          val _tmp: String
+          _tmp = _stmt.getText(_columnIndexOfType)
+          _tmpType = __converters.toTransactionType(_tmp)
+          val _tmpDate: Long
+          _tmpDate = _stmt.getLong(_columnIndexOfDate)
+          val _tmpDescription: String
+          _tmpDescription = _stmt.getText(_columnIndexOfDescription)
+          val _tmpReceiptPath: String?
+          if (_stmt.isNull(_columnIndexOfReceiptPath)) {
+            _tmpReceiptPath = null
+          } else {
+            _tmpReceiptPath = _stmt.getText(_columnIndexOfReceiptPath)
+          }
+          val _tmpIsRecurring: Boolean
+          val _tmp_1: Int
+          _tmp_1 = _stmt.getLong(_columnIndexOfIsRecurring).toInt()
+          _tmpIsRecurring = _tmp_1 != 0
+          val _tmpCreatedAt: Long
+          _tmpCreatedAt = _stmt.getLong(_columnIndexOfCreatedAt)
+          _item =
+              TransactionEntity(_tmpId,_tmpUserId,_tmpAccountId,_tmpCategoryId,_tmpAmount,_tmpType,_tmpDate,_tmpDescription,_tmpReceiptPath,_tmpIsRecurring,_tmpCreatedAt)
+          _result.add(_item)
+        }
+        _result
+      } finally {
+        _stmt.close()
+      }
+    }
+  }
+
   public override suspend fun getTotalSpentByCategory(
     userId: Long,
     categoryId: String,
     month: Int,
-    year: String,
+    year: Int,
   ): Double {
     val _sql: String = """
         |
         |        SELECT COALESCE(SUM(amount), 0.0) FROM transactions
-        |        WHERE userId = ? AND categoryId = ? AND type = 'EXPENSE'
+        |        WHERE userId = ?
+        |          AND categoryId = ?
+        |          AND type = 'EXPENSE'
         |          AND strftime('%m', date / 1000, 'unixepoch') = printf('%02d', ?)
-        |          AND strftime('%Y', date / 1000, 'unixepoch') = ?
+        |          AND strftime('%Y', date / 1000, 'unixepoch') = printf('%04d', ?)
         |    
         """.trimMargin()
     return performSuspending(__db, true, false) { _connection ->
@@ -513,7 +658,7 @@ public class TransactionDao_Impl(
         _argIndex = 3
         _stmt.bindLong(_argIndex, month.toLong())
         _argIndex = 4
-        _stmt.bindText(_argIndex, year)
+        _stmt.bindLong(_argIndex, year.toLong())
         val _result: Double
         if (_stmt.step()) {
           val _tmp: Double
@@ -532,14 +677,15 @@ public class TransactionDao_Impl(
   public override suspend fun getTotalExpenseForMonth(
     userId: Long,
     month: Int,
-    year: String,
+    year: Int,
   ): Double {
     val _sql: String = """
         |
         |        SELECT COALESCE(SUM(amount), 0.0) FROM transactions
-        |        WHERE userId = ? AND type = 'EXPENSE'
+        |        WHERE userId = ?
+        |          AND type = 'EXPENSE'
         |          AND strftime('%m', date / 1000, 'unixepoch') = printf('%02d', ?)
-        |          AND strftime('%Y', date / 1000, 'unixepoch') = ?
+        |          AND strftime('%Y', date / 1000, 'unixepoch') = printf('%04d', ?)
         |    
         """.trimMargin()
     return performSuspending(__db, true, false) { _connection ->
@@ -550,7 +696,7 @@ public class TransactionDao_Impl(
         _argIndex = 2
         _stmt.bindLong(_argIndex, month.toLong())
         _argIndex = 3
-        _stmt.bindText(_argIndex, year)
+        _stmt.bindLong(_argIndex, year.toLong())
         val _result: Double
         if (_stmt.step()) {
           val _tmp: Double
@@ -569,14 +715,15 @@ public class TransactionDao_Impl(
   public override suspend fun getTotalIncomeForMonth(
     userId: Long,
     month: Int,
-    year: String,
+    year: Int,
   ): Double {
     val _sql: String = """
         |
         |        SELECT COALESCE(SUM(amount), 0.0) FROM transactions
-        |        WHERE userId = ? AND type = 'INCOME'
+        |        WHERE userId = ?
+        |          AND type = 'INCOME'
         |          AND strftime('%m', date / 1000, 'unixepoch') = printf('%02d', ?)
-        |          AND strftime('%Y', date / 1000, 'unixepoch') = ?
+        |          AND strftime('%Y', date / 1000, 'unixepoch') = printf('%04d', ?)
         |    
         """.trimMargin()
     return performSuspending(__db, true, false) { _connection ->
@@ -587,7 +734,7 @@ public class TransactionDao_Impl(
         _argIndex = 2
         _stmt.bindLong(_argIndex, month.toLong())
         _argIndex = 3
-        _stmt.bindText(_argIndex, year)
+        _stmt.bindLong(_argIndex, year.toLong())
         val _result: Double
         if (_stmt.step()) {
           val _tmp: Double
@@ -657,68 +804,6 @@ public class TransactionDao_Impl(
               TransactionEntity(_tmpId,_tmpUserId,_tmpAccountId,_tmpCategoryId,_tmpAmount,_tmpType,_tmpDate,_tmpDescription,_tmpReceiptPath,_tmpIsRecurring,_tmpCreatedAt)
         } else {
           _result = null
-        }
-        _result
-      } finally {
-        _stmt.close()
-      }
-    }
-  }
-
-  public override fun getTransactionsByAccount(accountId: Long): Flow<List<TransactionEntity>> {
-    val _sql: String = "SELECT * FROM transactions WHERE accountId = ? ORDER BY date DESC"
-    return createFlow(__db, false, arrayOf("transactions")) { _connection ->
-      val _stmt: SQLiteStatement = _connection.prepare(_sql)
-      try {
-        var _argIndex: Int = 1
-        _stmt.bindLong(_argIndex, accountId)
-        val _columnIndexOfId: Int = getColumnIndexOrThrow(_stmt, "id")
-        val _columnIndexOfUserId: Int = getColumnIndexOrThrow(_stmt, "userId")
-        val _columnIndexOfAccountId: Int = getColumnIndexOrThrow(_stmt, "accountId")
-        val _columnIndexOfCategoryId: Int = getColumnIndexOrThrow(_stmt, "categoryId")
-        val _columnIndexOfAmount: Int = getColumnIndexOrThrow(_stmt, "amount")
-        val _columnIndexOfType: Int = getColumnIndexOrThrow(_stmt, "type")
-        val _columnIndexOfDate: Int = getColumnIndexOrThrow(_stmt, "date")
-        val _columnIndexOfDescription: Int = getColumnIndexOrThrow(_stmt, "description")
-        val _columnIndexOfReceiptPath: Int = getColumnIndexOrThrow(_stmt, "receiptPath")
-        val _columnIndexOfIsRecurring: Int = getColumnIndexOrThrow(_stmt, "isRecurring")
-        val _columnIndexOfCreatedAt: Int = getColumnIndexOrThrow(_stmt, "createdAt")
-        val _result: MutableList<TransactionEntity> = mutableListOf()
-        while (_stmt.step()) {
-          val _item: TransactionEntity
-          val _tmpId: Long
-          _tmpId = _stmt.getLong(_columnIndexOfId)
-          val _tmpUserId: Long
-          _tmpUserId = _stmt.getLong(_columnIndexOfUserId)
-          val _tmpAccountId: Long
-          _tmpAccountId = _stmt.getLong(_columnIndexOfAccountId)
-          val _tmpCategoryId: String
-          _tmpCategoryId = _stmt.getText(_columnIndexOfCategoryId)
-          val _tmpAmount: Double
-          _tmpAmount = _stmt.getDouble(_columnIndexOfAmount)
-          val _tmpType: TransactionType
-          val _tmp: String
-          _tmp = _stmt.getText(_columnIndexOfType)
-          _tmpType = __converters.toTransactionType(_tmp)
-          val _tmpDate: Long
-          _tmpDate = _stmt.getLong(_columnIndexOfDate)
-          val _tmpDescription: String
-          _tmpDescription = _stmt.getText(_columnIndexOfDescription)
-          val _tmpReceiptPath: String?
-          if (_stmt.isNull(_columnIndexOfReceiptPath)) {
-            _tmpReceiptPath = null
-          } else {
-            _tmpReceiptPath = _stmt.getText(_columnIndexOfReceiptPath)
-          }
-          val _tmpIsRecurring: Boolean
-          val _tmp_1: Int
-          _tmp_1 = _stmt.getLong(_columnIndexOfIsRecurring).toInt()
-          _tmpIsRecurring = _tmp_1 != 0
-          val _tmpCreatedAt: Long
-          _tmpCreatedAt = _stmt.getLong(_columnIndexOfCreatedAt)
-          _item =
-              TransactionEntity(_tmpId,_tmpUserId,_tmpAccountId,_tmpCategoryId,_tmpAmount,_tmpType,_tmpDate,_tmpDescription,_tmpReceiptPath,_tmpIsRecurring,_tmpCreatedAt)
-          _result.add(_item)
         }
         _result
       } finally {

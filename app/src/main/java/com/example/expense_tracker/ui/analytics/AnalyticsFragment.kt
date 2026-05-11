@@ -91,7 +91,7 @@ class AnalyticsFragment : Fragment() {
             setHoleRadius(60f)
             setTransparentCircleRadius(65f)
             setTransparentCircleAlpha(30)
-            holeColor = Color.TRANSPARENT
+            setHoleColor(Color.TRANSPARENT)
             setDrawCenterText(true)
             setCenterTextColor(parseColor("#181c20"))
             setCenterTextSize(14f)
