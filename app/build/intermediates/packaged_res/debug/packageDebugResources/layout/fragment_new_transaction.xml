@@ -25,10 +25,11 @@
             <!-- Close Button -->
             <ImageButton
                 android:id="@+id/btnClose"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Close"
+                android:scaleType="center"
                 android:src="@drawable/ic_close"
                 app:tint="#181C20" />
 
@@ -436,7 +437,7 @@
                             android:id="@+id/btnCash"
                             style="@style/Widget.MaterialComponents.Button"
                             android:layout_width="wrap_content"
-                            android:layout_height="40dp"
+                            android:layout_height="48dp"
                             android:layout_marginEnd="8dp"
                             android:backgroundTint="#004D64"
                             android:fontFamily="sans-serif-medium"
@@ -454,7 +455,7 @@
                             android:id="@+id/btnVisa"
                             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                             android:layout_width="wrap_content"
-                            android:layout_height="40dp"
+                            android:layout_height="48dp"
                             android:layout_marginEnd="8dp"
                             android:fontFamily="sans-serif"
                             android:icon="@drawable/ic_credit_card"
@@ -473,7 +474,7 @@
                             android:id="@+id/btnApplePay"
                             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                             android:layout_width="wrap_content"
-                            android:layout_height="40dp"
+                            android:layout_height="48dp"
                             android:fontFamily="sans-serif"
                             android:icon="@drawable/ic_contactless"
                             android:iconTint="#3F484D"
@@ -546,6 +547,7 @@
                             android:id="@+id/etDescription"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:minHeight="48dp"
                             android:layout_marginTop="4dp"
                             android:background="@null"
                             android:fontFamily="sans-serif"
