@@ -4,25 +4,61 @@ package com.example.expense_tracker.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
+import androidx.viewbinding.ViewBindings;
 import com.example.expense_tracker.R;
+import com.google.android.material.card.MaterialCardView;
 import java.lang.NullPointerException;
 import java.lang.Override;
+import java.lang.String;
 
 public final class ItemTransactionBinding implements ViewBinding {
   @NonNull
-  private final FrameLayout rootView;
+  private final MaterialCardView rootView;
 
-  private ItemTransactionBinding(@NonNull FrameLayout rootView) {
+  @NonNull
+  public final MaterialCardView cardIcon;
+
+  @NonNull
+  public final ImageView ivCategoryIcon;
+
+  @NonNull
+  public final LinearLayout llAmount;
+
+  @NonNull
+  public final TextView tvAmount;
+
+  @NonNull
+  public final TextView tvCategoryTag;
+
+  @NonNull
+  public final TextView tvTime;
+
+  @NonNull
+  public final TextView tvTitle;
+
+  private ItemTransactionBinding(@NonNull MaterialCardView rootView,
+      @NonNull MaterialCardView cardIcon, @NonNull ImageView ivCategoryIcon,
+      @NonNull LinearLayout llAmount, @NonNull TextView tvAmount, @NonNull TextView tvCategoryTag,
+      @NonNull TextView tvTime, @NonNull TextView tvTitle) {
     this.rootView = rootView;
+    this.cardIcon = cardIcon;
+    this.ivCategoryIcon = ivCategoryIcon;
+    this.llAmount = llAmount;
+    this.tvAmount = tvAmount;
+    this.tvCategoryTag = tvCategoryTag;
+    this.tvTime = tvTime;
+    this.tvTitle = tvTitle;
   }
 
   @Override
   @NonNull
-  public FrameLayout getRoot() {
+  public MaterialCardView getRoot() {
     return rootView;
   }
 
@@ -43,10 +79,56 @@ public final class ItemTransactionBinding implements ViewBinding {
 
   @NonNull
   public static ItemTransactionBinding bind(@NonNull View rootView) {
-    if (rootView == null) {
-      throw new NullPointerException("rootView");
-    }
+    // The body of this method is generated in a way you would not otherwise write.
+    // This is done to optimize the compiled bytecode for size and performance.
+    int id;
+    missingId: {
+      id = R.id.cardIcon;
+      MaterialCardView cardIcon = ViewBindings.findChildViewById(rootView, id);
+      if (cardIcon == null) {
+        break missingId;
+      }
 
-    return new ItemTransactionBinding((FrameLayout) rootView);
+      id = R.id.ivCategoryIcon;
+      ImageView ivCategoryIcon = ViewBindings.findChildViewById(rootView, id);
+      if (ivCategoryIcon == null) {
+        break missingId;
+      }
+
+      id = R.id.llAmount;
+      LinearLayout llAmount = ViewBindings.findChildViewById(rootView, id);
+      if (llAmount == null) {
+        break missingId;
+      }
+
+      id = R.id.tvAmount;
+      TextView tvAmount = ViewBindings.findChildViewById(rootView, id);
+      if (tvAmount == null) {
+        break missingId;
+      }
+
+      id = R.id.tvCategoryTag;
+      TextView tvCategoryTag = ViewBindings.findChildViewById(rootView, id);
+      if (tvCategoryTag == null) {
+        break missingId;
+      }
+
+      id = R.id.tvTime;
+      TextView tvTime = ViewBindings.findChildViewById(rootView, id);
+      if (tvTime == null) {
+        break missingId;
+      }
+
+      id = R.id.tvTitle;
+      TextView tvTitle = ViewBindings.findChildViewById(rootView, id);
+      if (tvTitle == null) {
+        break missingId;
+      }
+
+      return new ItemTransactionBinding((MaterialCardView) rootView, cardIcon, ivCategoryIcon,
+          llAmount, tvAmount, tvCategoryTag, tvTime, tvTitle);
+    }
+    String missingId = rootView.getResources().getResourceName(id);
+    throw new NullPointerException("Missing required view with ID: ".concat(missingId));
   }
 }

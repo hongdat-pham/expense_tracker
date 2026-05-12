@@ -4,25 +4,116 @@ package com.example.expense_tracker.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.viewbinding.ViewBinding;
+import androidx.viewbinding.ViewBindings;
 import com.example.expense_tracker.R;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import java.lang.NullPointerException;
 import java.lang.Override;
+import java.lang.String;
 
 public final class FragmentNewTransactionBinding implements ViewBinding {
   @NonNull
-  private final FrameLayout rootView;
+  private final CoordinatorLayout rootView;
 
-  private FragmentNewTransactionBinding(@NonNull FrameLayout rootView) {
+  @NonNull
+  public final AppBarLayout appBarLayout;
+
+  @NonNull
+  public final MaterialButton btnApplePay;
+
+  @NonNull
+  public final MaterialButton btnCash;
+
+  @NonNull
+  public final ImageButton btnClose;
+
+  @NonNull
+  public final MaterialButton btnSaveTransaction;
+
+  @NonNull
+  public final MaterialButton btnVisa;
+
+  @NonNull
+  public final MaterialCardView cardAddReceipt;
+
+  @NonNull
+  public final MaterialCardView cardDate;
+
+  @NonNull
+  public final MaterialCardView categoryDining;
+
+  @NonNull
+  public final MaterialCardView categoryHousing;
+
+  @NonNull
+  public final MaterialCardView categoryShopping;
+
+  @NonNull
+  public final MaterialCardView categoryTravel;
+
+  @NonNull
+  public final EditText etAmount;
+
+  @NonNull
+  public final EditText etDescription;
+
+  @NonNull
+  public final ImageView ivReceiptPreview;
+
+  @NonNull
+  public final Toolbar toolbar;
+
+  @NonNull
+  public final TextView tvDate;
+
+  @NonNull
+  public final TextView tvViewAll;
+
+  private FragmentNewTransactionBinding(@NonNull CoordinatorLayout rootView,
+      @NonNull AppBarLayout appBarLayout, @NonNull MaterialButton btnApplePay,
+      @NonNull MaterialButton btnCash, @NonNull ImageButton btnClose,
+      @NonNull MaterialButton btnSaveTransaction, @NonNull MaterialButton btnVisa,
+      @NonNull MaterialCardView cardAddReceipt, @NonNull MaterialCardView cardDate,
+      @NonNull MaterialCardView categoryDining, @NonNull MaterialCardView categoryHousing,
+      @NonNull MaterialCardView categoryShopping, @NonNull MaterialCardView categoryTravel,
+      @NonNull EditText etAmount, @NonNull EditText etDescription,
+      @NonNull ImageView ivReceiptPreview, @NonNull Toolbar toolbar, @NonNull TextView tvDate,
+      @NonNull TextView tvViewAll) {
     this.rootView = rootView;
+    this.appBarLayout = appBarLayout;
+    this.btnApplePay = btnApplePay;
+    this.btnCash = btnCash;
+    this.btnClose = btnClose;
+    this.btnSaveTransaction = btnSaveTransaction;
+    this.btnVisa = btnVisa;
+    this.cardAddReceipt = cardAddReceipt;
+    this.cardDate = cardDate;
+    this.categoryDining = categoryDining;
+    this.categoryHousing = categoryHousing;
+    this.categoryShopping = categoryShopping;
+    this.categoryTravel = categoryTravel;
+    this.etAmount = etAmount;
+    this.etDescription = etDescription;
+    this.ivReceiptPreview = ivReceiptPreview;
+    this.toolbar = toolbar;
+    this.tvDate = tvDate;
+    this.tvViewAll = tvViewAll;
   }
 
   @Override
   @NonNull
-  public FrameLayout getRoot() {
+  public CoordinatorLayout getRoot() {
     return rootView;
   }
 
@@ -43,10 +134,124 @@ public final class FragmentNewTransactionBinding implements ViewBinding {
 
   @NonNull
   public static FragmentNewTransactionBinding bind(@NonNull View rootView) {
-    if (rootView == null) {
-      throw new NullPointerException("rootView");
-    }
+    // The body of this method is generated in a way you would not otherwise write.
+    // This is done to optimize the compiled bytecode for size and performance.
+    int id;
+    missingId: {
+      id = R.id.appBarLayout;
+      AppBarLayout appBarLayout = ViewBindings.findChildViewById(rootView, id);
+      if (appBarLayout == null) {
+        break missingId;
+      }
 
-    return new FragmentNewTransactionBinding((FrameLayout) rootView);
+      id = R.id.btnApplePay;
+      MaterialButton btnApplePay = ViewBindings.findChildViewById(rootView, id);
+      if (btnApplePay == null) {
+        break missingId;
+      }
+
+      id = R.id.btnCash;
+      MaterialButton btnCash = ViewBindings.findChildViewById(rootView, id);
+      if (btnCash == null) {
+        break missingId;
+      }
+
+      id = R.id.btnClose;
+      ImageButton btnClose = ViewBindings.findChildViewById(rootView, id);
+      if (btnClose == null) {
+        break missingId;
+      }
+
+      id = R.id.btnSaveTransaction;
+      MaterialButton btnSaveTransaction = ViewBindings.findChildViewById(rootView, id);
+      if (btnSaveTransaction == null) {
+        break missingId;
+      }
+
+      id = R.id.btnVisa;
+      MaterialButton btnVisa = ViewBindings.findChildViewById(rootView, id);
+      if (btnVisa == null) {
+        break missingId;
+      }
+
+      id = R.id.cardAddReceipt;
+      MaterialCardView cardAddReceipt = ViewBindings.findChildViewById(rootView, id);
+      if (cardAddReceipt == null) {
+        break missingId;
+      }
+
+      id = R.id.cardDate;
+      MaterialCardView cardDate = ViewBindings.findChildViewById(rootView, id);
+      if (cardDate == null) {
+        break missingId;
+      }
+
+      id = R.id.categoryDining;
+      MaterialCardView categoryDining = ViewBindings.findChildViewById(rootView, id);
+      if (categoryDining == null) {
+        break missingId;
+      }
+
+      id = R.id.categoryHousing;
+      MaterialCardView categoryHousing = ViewBindings.findChildViewById(rootView, id);
+      if (categoryHousing == null) {
+        break missingId;
+      }
+
+      id = R.id.categoryShopping;
+      MaterialCardView categoryShopping = ViewBindings.findChildViewById(rootView, id);
+      if (categoryShopping == null) {
+        break missingId;
+      }
+
+      id = R.id.categoryTravel;
+      MaterialCardView categoryTravel = ViewBindings.findChildViewById(rootView, id);
+      if (categoryTravel == null) {
+        break missingId;
+      }
+
+      id = R.id.etAmount;
+      EditText etAmount = ViewBindings.findChildViewById(rootView, id);
+      if (etAmount == null) {
+        break missingId;
+      }
+
+      id = R.id.etDescription;
+      EditText etDescription = ViewBindings.findChildViewById(rootView, id);
+      if (etDescription == null) {
+        break missingId;
+      }
+
+      id = R.id.ivReceiptPreview;
+      ImageView ivReceiptPreview = ViewBindings.findChildViewById(rootView, id);
+      if (ivReceiptPreview == null) {
+        break missingId;
+      }
+
+      id = R.id.toolbar;
+      Toolbar toolbar = ViewBindings.findChildViewById(rootView, id);
+      if (toolbar == null) {
+        break missingId;
+      }
+
+      id = R.id.tvDate;
+      TextView tvDate = ViewBindings.findChildViewById(rootView, id);
+      if (tvDate == null) {
+        break missingId;
+      }
+
+      id = R.id.tvViewAll;
+      TextView tvViewAll = ViewBindings.findChildViewById(rootView, id);
+      if (tvViewAll == null) {
+        break missingId;
+      }
+
+      return new FragmentNewTransactionBinding((CoordinatorLayout) rootView, appBarLayout,
+          btnApplePay, btnCash, btnClose, btnSaveTransaction, btnVisa, cardAddReceipt, cardDate,
+          categoryDining, categoryHousing, categoryShopping, categoryTravel, etAmount,
+          etDescription, ivReceiptPreview, toolbar, tvDate, tvViewAll);
+    }
+    String missingId = rootView.getResources().getResourceName(id);
+    throw new NullPointerException("Missing required view with ID: ".concat(missingId));
   }
 }

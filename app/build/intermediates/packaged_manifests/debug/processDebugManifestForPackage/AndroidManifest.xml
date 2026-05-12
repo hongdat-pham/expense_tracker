@@ -25,7 +25,20 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Expense_tracker" >
+        android:testOnly="true"
+        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" >
+
+        <!-- ↓ activity phải nằm TRONG application -->
+        <activity
+            android:name="com.example.expense_tracker.MainActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="com.example.expense_tracker.androidx-startup"
