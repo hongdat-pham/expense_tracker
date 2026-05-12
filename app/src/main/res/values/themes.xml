@@ -3,6 +3,8 @@
     <style
         name="Theme.Expense_tracker"
         parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:fontFamily">@font/inter</item>
 
         <!-- Primary colors -->
         <item name="colorPrimary">#1E293B</item>
