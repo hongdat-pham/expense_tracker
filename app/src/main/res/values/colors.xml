@@ -1,24 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- ── Primary ─────────────────────────────────────────────────────────── -->
+    <color name="primary">#004d64</color>
+    <color name="on_primary">#ffffff</color>
+    <color name="primary_container">#006684</color>
+    <color name="on_primary_container">#a2e1ff</color>
+    <color name="primary_fixed">#bee9ff</color>
+    <color name="primary_fixed_dim">#87d0f2</color>
+    <color name="on_primary_fixed">#001f2a</color>
+    <color name="on_primary_fixed_variant">#004d64</color>
+    <color name="inverse_primary">#87d0f2</color>
+
+    <!-- ── Secondary ───────────────────────────────────────────────────────── -->
+    <color name="secondary">#516069</color>
+    <color name="on_secondary">#ffffff</color>
+    <color name="secondary_container">#d2e2ed</color>
+    <color name="on_secondary_container">#56656e</color>
+    <color name="secondary_fixed">#d5e5ef</color>
+    <color name="secondary_fixed_dim">#b9c9d3</color>
+    <color name="on_secondary_fixed">#0e1d25</color>
+    <color name="on_secondary_fixed_variant">#3a4951</color>
+
+    <!-- ── Tertiary ─────────────────────────────────────────────────────────  -->
+    <color name="tertiary">#005212</color>
+    <color name="on_tertiary">#ffffff</color>
+    <color name="tertiary_container">#1a6c23</color>
+    <color name="on_tertiary_container">#98eb92</color>
+    <color name="tertiary_fixed">#a3f69c</color>
+    <color name="tertiary_fixed_dim">#88d982</color>
+    <color name="on_tertiary_fixed">#002204</color>
+    <color name="on_tertiary_fixed_variant">#005312</color>
+
+    <!-- ── Error ───────────────────────────────────────────────────────────── -->
+    <color name="error">#ba1a1a</color>
+    <color name="on_error">#ffffff</color>
+    <color name="error_container">#ffdad6</color>
+    <color name="on_error_container">#93000a</color>
+
+    <!-- ── Surface ─────────────────────────────────────────────────────────── -->
+    <color name="surface">#f7f9ff</color>
+    <color name="on_surface">#181c20</color>
+    <color name="surface_variant">#dfe3e8</color>
+    <color name="on_surface_variant">#3f484d</color>
+    <color name="surface_container_lowest">#ffffff</color>
+    <color name="surface_container_low">#f1f4fa</color>
+    <color name="surface_container">#ebeef4</color>
+    <color name="surface_container_high">#e5e8ee</color>
+    <color name="surface_container_highest">#dfe3e8</color>
+    <color name="surface_bright">#f7f9ff</color>
+    <color name="surface_dim">#d7dae0</color>
+    <color name="surface_tint">#016684</color>
+    <color name="inverse_surface">#2d3135</color>
+    <color name="inverse_on_surface">#eef1f7</color>
+
+    <!-- ── Outline ─────────────────────────────────────────────────────────── -->
+    <color name="outline">#70787e</color>
+    <color name="outline_variant">#bfc8cd</color>
+
+    <!-- ── Background ─────────────────────────────────────────────────────── -->
+    <color name="background">#f7f9ff</color>
+    <color name="on_background">#181c20</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="surface">#f7f9ff</color>
-    <color name="surface_container_lowest">#ffffff</color>
-    <color name="surface_container_low">#f1f4fa</color>
-    <color name="surface_container">#ebeef4</color>
-    <color name="surface_container_high">#e5e8ee</color>
-    <color name="on_surface">#181c20</color>
-    <color name="on_surface_variant">#3f484d</color>
-    <color name="primary">#004d64</color>
-    <color name="primary_container">#006684</color>
-    <color name="tertiary">#005212</color>
-    <color name="tertiary_container">#1a6c23</color>
-    <color name="on_primary">#ffffff</color>
-    <color name="on_tertiary">#ffffff</color>
-    <color name="error">#ba1a1a</color>
+
 </resources>
