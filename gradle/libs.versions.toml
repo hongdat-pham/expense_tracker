@@ -13,6 +13,7 @@ constraintlayout = "2.2.0"
 # Navigation
 navigationFragment = "2.8.5"
 navigationUi = "2.8.5"
+navigationSafeArgs = "2.8.5"  # THÊM DÒNG NÀY
 
 # Room
 room = "2.7.0"
@@ -51,6 +52,7 @@ androidx-room-compiler = { group = "androidx.room", name = "room-compiler", vers
 # Lifecycle
 androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }  # THÊM DÒNG NÀY
 
 # Retrofit + Gson
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
@@ -72,3 +74,5 @@ androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+androidx-navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navigationSafeArgs" }  # THÊM PLUGIN NÀY
+ksp = { id = "com.google.devtools.ksp", version = "2.0.0-1.0.21" }  # THÊM PLUGIN NÀY

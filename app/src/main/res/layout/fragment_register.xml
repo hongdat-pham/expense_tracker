@@ -11,12 +11,12 @@
         android:layout_height="wrap_content"
         android:padding="32dp">
 
-        <!-- Back button -->
+        <!-- Back button with app icon -->
         <ImageButton
             android:id="@+id/btnBack"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_launcher_foreground"
+            android:src="@mipmap/ic_launcher"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Back"
             app:layout_constraintTop_toTopOf="parent"

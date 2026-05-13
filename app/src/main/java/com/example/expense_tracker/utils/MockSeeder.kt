@@ -5,10 +5,17 @@ import com.example.expense_tracker.data.local.entity.AccountEntity
 import com.example.expense_tracker.data.local.entity.AccountType
 import com.example.expense_tracker.data.local.entity.UserEntity
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
+import java.security.MessageDigest
 import java.util.Calendar
 
 object MockSeeder {
+
+    private fun sha256(input: String): String {
+        val bytes = MessageDigest.getInstance("SHA-256").digest(input.toByteArray())
+        return bytes.joinToString("") { "%02x".format(it) }
+    }
 
     suspend fun seedAnalyticsData(
         database: AppDatabase
@@ -21,74 +28,62 @@ object MockSeeder {
             val transactionDao = database.transactionDao()
 
             // =========================
-            // USER
+            // TẠO USER DEMO NẾU CHƯA TỒN TẠI
             // =========================
 
-            var user = userDao.getFirstUser()
+            var demoUser = userDao.getUserByEmail("demo@gmail.com")
 
-            val userId = if (user == null) {
-
-                userDao.insertUser(
+            if (demoUser == null) {
+                // Tạo user demo mới - PHẢI HASH PASSWORD
+                val hashedPassword = sha256("123456")
+                val userId = userDao.insertUser(
                     UserEntity(
                         fullName = "Demo User",
                         email = "demo@gmail.com",
-                        passwordHash = "123456"
+                        passwordHash = hashedPassword
                     )
                 )
-
-            } else {
-                user.id
+                demoUser = userDao.getUserById(userId)
             }
 
-            // =========================
-            // ACCOUNT
-            // =========================
+            if (demoUser == null) return@withContext
 
-            var account = accountDao.getFirstAccount()
+            // Tạo account cho user demo
+            val accounts = accountDao.getAccountsByUser(demoUser.id).first()
+            val account = if (accounts.isNotEmpty()) accounts[0] else null
 
             val accountId = if (account == null) {
-
                 accountDao.insertAccount(
                     AccountEntity(
-                        userId = userId,
-                        name = "Cash Wallet",
-                        lastFourDigits = "0000",
-                        type = AccountType.DIGITAL_WALLET,
-                        balance = 20000000.0
+                        userId = demoUser.id,
+                        name = "Main Wallet",
+                        lastFourDigits = "8888",
+                        type = AccountType.SAVING,
+                        balance = 15000000.0,
+                        isActive = true
                     )
                 )
-
             } else {
                 account.id
             }
 
-            // =========================
-            // TRANSACTIONS
-            // =========================
+            // Kiểm tra và seed transactions nếu chưa có
+            val currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1
+            val currentYear = Calendar.getInstance().get(Calendar.YEAR)
 
-            val currentMonth =
-                Calendar.getInstance().get(Calendar.MONTH) + 1
+            val existingTransactions = transactionDao.getTransactionsByUserAndMonthOnce(
+                userId = demoUser.id,
+                month = currentMonth,
+                year = currentYear
+            )
 
-            val currentYear =
-                Calendar.getInstance().get(Calendar.YEAR)
-
-            val existingTransactions =
-                transactionDao.getTransactionsByUserAndMonthOnce(
-                    userId = userId,
-                    month = currentMonth,
-                    year = currentYear
-                )
-
-            if (existingTransactions.isNotEmpty()) {
-                return@withContext
-            }
-
-            transactionDao.insertAll(
-                MockData.transactions(
-                    userId = userId,
+            if (existingTransactions.isEmpty()) {
+                val mockTransactions = MockData.transactions(
+                    userId = demoUser.id,
                     accountId = accountId
                 )
-            )
+                transactionDao.insertAll(mockTransactions)
+            }
         }
     }
 }

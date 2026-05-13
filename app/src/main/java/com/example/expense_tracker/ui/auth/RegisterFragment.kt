@@ -37,6 +37,11 @@ class RegisterFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+        // THÊM NÚT CHUYỂN VỀ LOGIN (nếu có trong XML)
+        binding.tvLogin?.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         binding.btnRegister.setOnClickListener {
             val fullName = binding.etFullName.text.toString().trim()
             val email = binding.etEmail.text.toString().trim()

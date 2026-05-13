@@ -16,11 +16,9 @@ interface TransactionDao {
 
     // ── Flow queries (live, for UI screens) ───────────────────────────────────
 
-    /** All transactions for a user — Activity screen */
     @Query("SELECT * FROM transactions WHERE userId = :userId ORDER BY date DESC")
     fun getAllTransactionsByUser(userId: Long): Flow<List<TransactionEntity>>
 
-    /** Recent N transactions — Overview screen */
     @Query("""
         SELECT * FROM transactions
         WHERE userId = :userId
@@ -29,11 +27,6 @@ interface TransactionDao {
     """)
     fun getRecentTransactions(userId: Long, limit: Int = 5): Flow<List<TransactionEntity>>
 
-    /**
-     * Transactions for a specific month — Overview live card.
-     * [month] is 1-based (1 = January). [year] is a 4-digit Int.
-     * Using printf('%02d', :month) pads single digits: 1 → "01".
-     */
     @Query("""
         SELECT * FROM transactions
         WHERE userId = :userId
@@ -47,7 +40,6 @@ interface TransactionDao {
         year: Int
     ): Flow<List<TransactionEntity>>
 
-    /** Search by description — Activity search bar */
     @Query("""
         SELECT * FROM transactions
         WHERE userId = :userId
@@ -56,7 +48,6 @@ interface TransactionDao {
     """)
     fun searchTransactions(userId: Long, query: String): Flow<List<TransactionEntity>>
 
-    /** Filter by type (EXPENSE / INCOME) — Activity filter chips */
     @Query("""
         SELECT * FROM transactions
         WHERE userId = :userId AND type = :type
@@ -64,7 +55,6 @@ interface TransactionDao {
     """)
     fun getTransactionsByType(userId: Long, type: TransactionType): Flow<List<TransactionEntity>>
 
-    /** Recurring only — Activity "Recurring" chip */
     @Query("""
         SELECT * FROM transactions
         WHERE userId = :userId AND isRecurring = 1
@@ -72,17 +62,11 @@ interface TransactionDao {
     """)
     fun getRecurringTransactions(userId: Long): Flow<List<TransactionEntity>>
 
-    /** All transactions for an account */
     @Query("SELECT * FROM transactions WHERE accountId = :accountId ORDER BY date DESC")
     fun getTransactionsByAccount(accountId: Long): Flow<List<TransactionEntity>>
 
-    // ── Suspend (one-shot) queries — for Analytics & Budget logic ─────────────
+    // ── Suspend (one-shot) queries ────────────────────────────────────────────
 
-    /**
-     * One-shot list for a month — used by AnalyticsViewModel.
-     * Returns a plain List (not Flow) so Analytics can do its own computation
-     * without keeping a live collector open for each of the 6 historical months.
-     */
     @Query("""
         SELECT * FROM transactions
         WHERE userId = :userId
@@ -96,7 +80,6 @@ interface TransactionDao {
         year: Int
     ): List<TransactionEntity>
 
-    /** Total EXPENSE for a category in a month — Budget logic & Analytics */
     @Query("""
         SELECT COALESCE(SUM(amount), 0.0) FROM transactions
         WHERE userId = :userId
@@ -112,7 +95,6 @@ interface TransactionDao {
         year: Int
     ): Double
 
-    /** Total EXPENSE for a month — Analytics BarChart */
     @Query("""
         SELECT COALESCE(SUM(amount), 0.0) FROM transactions
         WHERE userId = :userId
@@ -122,7 +104,6 @@ interface TransactionDao {
     """)
     suspend fun getTotalExpenseForMonth(userId: Long, month: Int, year: Int): Double
 
-    /** Total INCOME for a month — Analytics savings calculation */
     @Query("""
         SELECT COALESCE(SUM(amount), 0.0) FROM transactions
         WHERE userId = :userId
@@ -132,9 +113,27 @@ interface TransactionDao {
     """)
     suspend fun getTotalIncomeForMonth(userId: Long, month: Int, year: Int): Double
 
-    /** Single transaction by ID — ActivityDetail */
     @Query("SELECT * FROM transactions WHERE id = :transactionId LIMIT 1")
     suspend fun getTransactionById(transactionId: Long): TransactionEntity?
+
+    // ========== CÁC METHOD THÊM VÀO ==========
+
+    @Query("SELECT * FROM transactions WHERE id = :id")
+    suspend fun getById(id: Long): TransactionEntity?
+
+    @Query("DELETE FROM transactions WHERE id = :id")
+    suspend fun deleteById(id: Long)
+
+    suspend fun deleteTransaction(transactionId: Long) {
+        deleteById(transactionId)
+    }
+
+    @Query("SELECT * FROM transactions ORDER BY date DESC")
+    suspend fun getAllTransactions(): List<TransactionEntity>
+
+    @Query("SELECT * FROM transactions WHERE userId = :userId")
+    suspend fun getTransactionsByUser(userId: Long): List<TransactionEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(transactions: List<TransactionEntity>)
 }

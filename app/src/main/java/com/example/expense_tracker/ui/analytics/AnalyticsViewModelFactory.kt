@@ -7,10 +7,6 @@ import com.example.expense_tracker.data.local.AppDatabase
 import com.example.expense_tracker.data.repository.TransactionRepository
 import com.example.expense_tracker.utils.SharedPrefsHelper
 
-/**
- * Simple ViewModelFactory for AnalyticsViewModel.
- * No Hilt/Dagger required — replace if the project adds DI later.
- */
 class AnalyticsViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
@@ -18,7 +14,7 @@ class AnalyticsViewModelFactory(private val context: Context) : ViewModelProvide
         if (modelClass.isAssignableFrom(AnalyticsViewModel::class.java)) {
             val db = AppDatabase.getInstance(context)
             val txRepo = TransactionRepository(db.transactionDao(), db.accountDao(), db.budgetDao())
-            val prefs  = SharedPrefsHelper(context)
+            val prefs = SharedPrefsHelper(context)
             return AnalyticsViewModel(txRepo, prefs) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

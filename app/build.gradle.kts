@@ -3,7 +3,9 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("com.google.devtools.ksp")}
+    alias(libs.plugins.ksp)  // SỬA THÀNH DÒNG NÀY
+    alias(libs.plugins.androidx.navigation.safeargs)  // THÊM DÒNG NÀY
+}
 
 android {
     namespace = "com.example.expense_tracker"
@@ -39,13 +41,9 @@ android {
     }
 }
 
-// CẤU HÌNH COMPILER OPTIONS MỚI (đặt ngoài block android)
 kotlin {
     compilerOptions {
         jvmTarget = JvmTarget.JVM_17
-        // Nếu bạn muốn set thêm các tùy chọn khác, ví dụ:
-        // apiVersion = KotlinVersion.KOTLIN_2_0
-        // languageVersion = KotlinVersion.KOTLIN_2_0
     }
 }
 
@@ -62,12 +60,12 @@ dependencies {
     // Room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
     ksp(libs.androidx.room.compiler)
+
     // Lifecycle
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.livedata)
+    implementation(libs.androidx.lifecycle.runtime.ktx)  // THÊM DÒNG NÀY
 
     // Retrofit
     implementation(libs.retrofit)

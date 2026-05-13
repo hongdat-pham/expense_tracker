@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.expense_tracker.R
 import com.example.expense_tracker.databinding.FragmentAnalyticsBinding
+import com.example.expense_tracker.utils.Constants
 import com.example.expense_tracker.utils.CurrencyFormatter
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.XAxis
@@ -35,29 +36,24 @@ class AnalyticsFragment : Fragment() {
     private var _binding: FragmentAnalyticsBinding? = null
     private val binding get() = _binding!!
 
-    // Simple ViewModel factory — replace with Hilt / ViewModelProvider.Factory as needed
     private val viewModel: AnalyticsViewModel by viewModels {
         AnalyticsViewModelFactory(requireContext())
     }
 
-    // Adapters
     private lateinit var legendAdapter: PieLegendAdapter
     private lateinit var intensityAdapter: IntensityAdapter
 
-    // Chart color palette matching design system
     private val chartColors by lazy {
         listOf(
-            parseColor("#004d64"),  // primary
-            parseColor("#87d0f2"),  // primary-fixed-dim
-            parseColor("#d5e5ef"),  // secondary-fixed
-            parseColor("#a3f69c"),  // tertiary-fixed
-            parseColor("#dfe3e8"),  // surface-variant
-            parseColor("#006684"),  // primary-container
-            parseColor("#bee9ff"),  // primary-fixed
+            parseColor("#004d64"),
+            parseColor("#87d0f2"),
+            parseColor("#d5e5ef"),
+            parseColor("#a3f69c"),
+            parseColor("#dfe3e8"),
+            parseColor("#006684"),
+            parseColor("#bee9ff"),
         )
     }
-
-    // ── Lifecycle ────────────────────────────────────────────────────────────
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -79,8 +75,6 @@ class AnalyticsFragment : Fragment() {
         _binding = null
     }
 
-    // ── Setup ────────────────────────────────────────────────────────────────
-
     private fun setupCharts() {
         setupPieChart()
         setupBarChart()
@@ -96,9 +90,9 @@ class AnalyticsFragment : Fragment() {
             setCenterTextColor(parseColor("#181c20"))
             setCenterTextSize(14f)
             description.isEnabled = false
-            legend.isEnabled = false           // We draw our own legend
+            legend.isEnabled = false
             isRotationEnabled = true
-            setEntryLabelColor(Color.TRANSPARENT)  // Hide slice labels
+            setEntryLabelColor(Color.TRANSPARENT)
             setEntryLabelTextSize(0f)
             setNoDataText("No spending this month")
             setNoDataTextColor(parseColor("#3f484d"))
@@ -156,8 +150,6 @@ class AnalyticsFragment : Fragment() {
         binding.btnNextMonth.setOnClickListener { viewModel.nextMonth() }
     }
 
-    // ── Observers ────────────────────────────────────────────────────────────
-
     private fun observeUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -174,8 +166,6 @@ class AnalyticsFragment : Fragment() {
         }
     }
 
-    // ── Chart update helpers ─────────────────────────────────────────────────
-
     private fun updatePieChart(state: AnalyticsUiState) {
         if (state.categorySpending.isEmpty()) {
             binding.pieChart.clear()
@@ -185,7 +175,6 @@ class AnalyticsFragment : Fragment() {
             return
         }
 
-        // Build PieEntries
         val entries = state.categorySpending.map { cs ->
             PieEntry(cs.percent, cs.category.displayName)
         }
@@ -195,7 +184,6 @@ class AnalyticsFragment : Fragment() {
                 .map { it }
                 .toMutableList()
                 .apply {
-                    // Pad with repeating colors if more categories than palette
                     while (size < entries.size) add(chartColors[size % chartColors.size])
                 }
             sliceSpace = 3f
@@ -205,13 +193,11 @@ class AnalyticsFragment : Fragment() {
 
         binding.pieChart.apply {
             data = PieData(dataSet)
-            // Center text: total spent
             centerText = CurrencyFormatter.formatAmount(state.totalSpent)
             animateY(800, Easing.EaseInOutQuad)
             invalidate()
         }
 
-        // Trend label
         val trendText = when {
             state.trendPercent < 0 -> "%.1f%% vs last month".format(-state.trendPercent)
             state.trendPercent > 0 -> "+%.1f%% vs last month".format(state.trendPercent)
@@ -223,36 +209,29 @@ class AnalyticsFragment : Fragment() {
         binding.ivTrendIcon.setImageResource(
             if (state.trendPercent <= 0) R.drawable.ic_arrow_downward else R.drawable.ic_arrow_upward
         )
-        binding.ivTrendIcon.imageTintList =
-            ContextCompat.getColorStateList(requireContext(), trendColor)
+        binding.ivTrendIcon.imageTintList = ContextCompat.getColorStateList(requireContext(), trendColor)
 
-        // Custom legend
         val legendItems = state.categorySpending.mapIndexed { i, cs ->
             PieLegendItem(
-                color   = chartColors.getOrElse(i) { chartColors.last() },
-                label   = cs.category.displayName,
+                color = chartColors.getOrElse(i) { chartColors.last() },
+                label = cs.category.displayName,
                 percent = "%.0f%%".format(cs.percent),
-                amount  = CurrencyFormatter.formatAmount(cs.amount)
+                amount = CurrencyFormatter.formatAmount(cs.amount)
             )
         }
         legendAdapter.submitList(legendItems)
     }
 
     private fun updateKeyInsights(state: AnalyticsUiState) {
-        // Highest spend category
         val highest = state.highestCategory
         if (highest != null) {
             binding.tvHighestCategoryName.text = highest.category.displayName
             binding.tvHighestCategoryPercent.text = "%.0f%% of total".format(highest.percent)
-            // Set icon using Material Symbol name is not directly possible in XML without
-            // a mapping; for now we use a generic icon. Teams can extend this with a
-            // categoryId → drawable map in Constants.
             binding.ivHighestCategoryIcon.setImageResource(
-                getCategoryIconRes(highest.category.icon)
+                Constants.getIconResource(highest.category.icon)
             )
         }
 
-        // Estimated savings
         val savingsColor = if (state.estimatedSavings >= 0) R.color.tertiary else R.color.error
         binding.tvEstSavings.text = CurrencyFormatter.formatAmount(
             kotlin.math.abs(state.estimatedSavings)
@@ -273,9 +252,8 @@ class AnalyticsFragment : Fragment() {
         }
         val labels = state.monthlyTotals.map { it.label }
 
-        // Highlight the current month (last entry)
-        val primaryColor   = parseColor("#004d64")
-        val inactiveColor  = parseColor("#1A004D64")   // primary at ~10% opacity
+        val primaryColor = parseColor("#004d64")
+        val inactiveColor = parseColor("#1A004D64")
 
         val barColors = entries.indices.map { i ->
             if (i == entries.lastIndex) primaryColor else inactiveColor
@@ -294,7 +272,6 @@ class AnalyticsFragment : Fragment() {
             invalidate()
         }
 
-        // Avg label
         val avg = state.avgMonthlyExpense
         binding.tvBarChartAvg.text = "Avg: ${CurrencyFormatter.formatAmount(avg)}"
     }
@@ -308,34 +285,7 @@ class AnalyticsFragment : Fragment() {
         }
     }
 
-    // ── Utility ──────────────────────────────────────────────────────────────
-
     private fun parseColor(hex: String): Int = Color.parseColor(hex)
-
-    /**
-     * Maps a Material Symbol name (stored as a string in Category) to a drawable resource.
-     * Add more entries as your categories grow.
-     */
-    private fun getCategoryIconRes(iconName: String): Int = when (iconName) {
-        "restaurant"             -> R.drawable.ic_restaurant
-        "local_grocery_store"    -> R.drawable.ic_grocery
-        "directions_car"         -> R.drawable.ic_car
-        "shopping_bag"           -> R.drawable.ic_shopping_bag
-        "home"                   -> R.drawable.ic_home
-        "movie"                  -> R.drawable.ic_movie
-        "health_and_safety"      -> R.drawable.ic_health
-        "school"                 -> R.drawable.ic_school
-        "bolt"                   -> R.drawable.ic_bolt
-        "flight"                 -> R.drawable.ic_flight
-        "spa"                    -> R.drawable.ic_spa
-        "pets"                   -> R.drawable.ic_pets
-        "account_balance_wallet" -> R.drawable.ic_wallet
-        "laptop_mac"             -> R.drawable.ic_laptop
-        "trending_up"            -> R.drawable.ic_trending_up
-        "card_giftcard"          -> R.drawable.ic_gift
-        "payments"               -> R.drawable.ic_payments
-        else                     -> R.drawable.ic_more_horiz
-    }
 }
 
 // ── PieLegendAdapter ─────────────────────────────────────────────────────────
@@ -362,23 +312,21 @@ class PieLegendAdapter : RecyclerView.Adapter<PieLegendAdapter.VH>() {
         return VH(view)
     }
 
-    override fun onBindViewHolder(holder: VH, position: Int) =
-        holder.bind(items[position])
+    override fun onBindViewHolder(holder: VH, position: Int) = holder.bind(items[position])
 
     override fun getItemCount() = items.size
 
     class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val dot: View     = itemView.findViewById(R.id.viewDot)
+        private val dot: View = itemView.findViewById(R.id.viewDot)
         private val label: TextView = itemView.findViewById(R.id.tvLegendLabel)
         private val percent: TextView = itemView.findViewById(R.id.tvLegendPercent)
         private val amount: TextView = itemView.findViewById(R.id.tvLegendAmount)
 
         fun bind(item: PieLegendItem) {
-            dot.backgroundTintList =
-                android.content.res.ColorStateList.valueOf(item.color)
-            label.text   = item.label
+            dot.backgroundTintList = android.content.res.ColorStateList.valueOf(item.color)
+            label.text = item.label
             percent.text = item.percent
-            amount.text  = item.amount
+            amount.text = item.amount
         }
     }
 }
@@ -400,35 +348,35 @@ class IntensityAdapter : RecyclerView.Adapter<IntensityAdapter.VH>() {
         return VH(view)
     }
 
-    override fun onBindViewHolder(holder: VH, position: Int) =
-        holder.bind(items[position])
+    override fun onBindViewHolder(holder: VH, position: Int) = holder.bind(items[position])
 
     override fun getItemCount() = items.size
 
     class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val icon: ImageView = itemView.findViewById(R.id.ivCategoryIcon)
-        private val name: TextView  = itemView.findViewById(R.id.tvIntensityCategoryName)
-        private val pct: TextView   = itemView.findViewById(R.id.tvIntensityPercent)
-        private val amt: TextView   = itemView.findViewById(R.id.tvIntensityAmount)
-        private val bar: View       = itemView.findViewById(R.id.viewProgressFill)
+        private val name: TextView = itemView.findViewById(R.id.tvIntensityCategoryName)
+        private val pct: TextView = itemView.findViewById(R.id.tvIntensityPercent)
+        private val amt: TextView = itemView.findViewById(R.id.tvIntensityAmount)
+        private val bar: View = itemView.findViewById(R.id.viewProgressFill)
 
         fun bind(row: IntensityRow) {
             name.text = row.category.displayName
-            pct.text  = "%.0f%% of total".format(row.percent)
-            amt.text  = CurrencyFormatter.formatAmount(row.amount)
+            pct.text = "%.0f%% of total".format(row.percent)
+            amt.text = CurrencyFormatter.formatAmount(row.amount)
 
-            // Scale the mini progress bar based on percent (max width 80dp)
             val maxWidthPx = itemView.context.resources
-                .getDimensionPixelSize(R.dimen.intensity_bar_max_width)   // 80dp in dimens.xml
+                .getDimensionPixelSize(R.dimen.intensity_bar_max_width)
             val params = bar.layoutParams
             params.width = ((row.percent / 100f) * maxWidthPx).toInt().coerceAtLeast(4)
             bar.layoutParams = params
 
-            // Color: red if >80%, primary otherwise
             val colorRes = if (row.percent >= 80f) R.color.error else R.color.primary
             bar.backgroundTintList = android.content.res.ColorStateList.valueOf(
                 androidx.core.content.ContextCompat.getColor(itemView.context, colorRes)
             )
+
+            val iconRes = Constants.getIconResource(row.category.icon)
+            icon.setImageResource(iconRes)
         }
     }
 }

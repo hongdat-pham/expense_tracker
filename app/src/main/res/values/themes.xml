@@ -1,23 +1,38 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style
-        name="Theme.Expense_tracker"
-        parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Expense_tracker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <!-- Font -->
         <item name="fontFamily">@font/inter</item>
         <item name="android:fontFamily">@font/inter</item>
 
         <!-- Primary colors -->
-        <item name="colorPrimary">#1E293B</item>
-        <item name="colorPrimaryVariant">#0F172A</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_container</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
 
         <!-- Secondary colors -->
-        <item name="colorSecondary">#10B981</item>
-        <item name="colorSecondaryVariant">#059669</item>
-        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondary_container</item>
+        <item name="colorOnSecondary">@color/on_secondary</item>
+
+        <!-- Surface colors -->
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+        <item name="colorSurfaceVariant">@color/surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/on_surface_variant</item>
+
+        <!-- Outline -->
+        <item name="colorOutline">@color/outline</item>
 
         <!-- Status bar -->
-        <item name="android:statusBarColor">#0F172A</item>
+        <item name="android:statusBarColor">@color/primary</item>
+
+        <!-- Window background -->
+        <item name="android:windowBackground">@color/surface</item>
+
+        <!-- Chip style - quan trọng cho Chip hoạt động -->
+        <item name="chipStyle">@style/Widget.MaterialComponents.Chip.Filter</item>
 
     </style>
 

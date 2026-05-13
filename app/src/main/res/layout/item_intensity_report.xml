@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- item_intensity_report.xml — one category row in the Intensity Report section -->
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -17,14 +16,14 @@
         android:orientation="horizontal"
         android:padding="16dp">
 
-        <!-- Icon container -->
+        <!-- Icon container - dùng ImageView -->
         <ImageView
             android:id="@+id/ivCategoryIcon"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@drawable/bg_category_icon"
             android:padding="12dp"
-            android:src="@drawable/ic_home"
+            android:src="@drawable/ic_receipt"
             app:tint="@color/primary" />
 
         <!-- Name + percent label -->
@@ -71,7 +70,7 @@
                 android:textSize="16sp"
                 tools:text="$2,100.00" />
 
-            <!-- Mini progress bar (80dp wide) -->
+            <!-- Mini progress bar -->
             <FrameLayout
                 android:layout_width="80dp"
                 android:layout_height="6dp"

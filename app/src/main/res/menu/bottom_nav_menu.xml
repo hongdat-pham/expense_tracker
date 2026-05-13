@@ -2,14 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/overviewFragment"
+        android:icon="@drawable/ic_home"
         android:title="Overview" />
     <item
         android:id="@+id/activityFragment"
+        android:icon="@drawable/ic_receipt"
         android:title="Activity" />
     <item
         android:id="@+id/analyticsFragment"
+        android:icon="@drawable/ic_insights"
         android:title="Analytics" />
     <item
         android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_menu"
         android:title="Settings" />
 </menu>

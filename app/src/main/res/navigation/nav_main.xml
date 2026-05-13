@@ -11,6 +11,10 @@
         <action
             android:id="@+id/action_overview_to_newTransaction"
             app:destination="@id/newTransactionFragment" />
+        <!-- THÊM ACTION NÀY -->
+        <action
+            android:id="@+id/action_overview_to_activity"
+            app:destination="@id/activityFragment" />
     </fragment>
 
     <fragment
