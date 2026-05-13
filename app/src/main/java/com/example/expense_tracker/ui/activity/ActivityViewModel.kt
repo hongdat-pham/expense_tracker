@@ -1,0 +1,139 @@
+package com.example.expense_tracker.ui.activity
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.expense_tracker.data.local.entity.TransactionEntity
+import com.example.expense_tracker.data.local.entity.TransactionType
+import com.example.expense_tracker.data.repository.TransactionRepository
+import com.example.expense_tracker.utils.SharedPrefsHelper
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.launch
+import com.example.expense_tracker.utils.DateUtils.toGroupHeader  // THÊM IMPORT
+import com.example.expense_tracker.utils.DateUtils.toShortDate   // THÊM IMPORT
+
+enum class TransactionFilter { ALL, EXPENSES, INCOME, RECURRING }
+
+data class ActivityUiState(
+    val groupedTransactions: List<TransactionListItem> = emptyList(),
+    val isLoading: Boolean = true,
+    val isEmpty: Boolean = false,
+    val activeFilter: TransactionFilter = TransactionFilter.ALL
+)
+
+sealed class TransactionListItem {
+    data class Header(val label: String, val date: String) : TransactionListItem()
+    data class Item(val transaction: TransactionEntity) : TransactionListItem()
+}
+
+@OptIn(FlowPreview::class)
+class ActivityViewModel(
+    private val transactionRepository: TransactionRepository,
+    private val sharedPrefsHelper: SharedPrefsHelper
+) : ViewModel() {
+
+    private val _uiState = MutableStateFlow(ActivityUiState())
+    val uiState: StateFlow<ActivityUiState> = _uiState.asStateFlow()
+
+    private val _searchQuery = MutableStateFlow("")
+    private val _activeFilter = MutableStateFlow(TransactionFilter.ALL)
+    private val _startDate = MutableStateFlow<Long?>(null)
+    private val _endDate = MutableStateFlow<Long?>(null)
+
+    val activeFilter: StateFlow<TransactionFilter> = _activeFilter.asStateFlow()
+    val startDate: StateFlow<Long?> = _startDate.asStateFlow()
+    val endDate: StateFlow<Long?> = _endDate.asStateFlow()
+
+    private val userId: Long get() = sharedPrefsHelper.getUserId()
+
+    init {
+        observeTransactions()
+    }
+
+    private fun observeTransactions() {
+        viewModelScope.launch {
+            combine(
+                _searchQuery.debounce(300L),
+                _activeFilter,
+                _startDate,
+                _endDate
+            ) { query, filter, start, end ->
+                Quad(query, filter, start, end)
+            }.flatMapLatest { (query, filter, start, end) ->
+                when {
+                    query.isNotBlank() ->
+                        transactionRepository.searchTransactions(userId, query)
+                    filter == TransactionFilter.EXPENSES ->
+                        transactionRepository.getTransactionsByType(userId, TransactionType.EXPENSE)
+                    filter == TransactionFilter.INCOME ->
+                        transactionRepository.getTransactionsByType(userId, TransactionType.INCOME)
+                    filter == TransactionFilter.RECURRING ->
+                        transactionRepository.getRecurringTransactions(userId)
+                    else ->
+                        transactionRepository.getAllTransactionsByUser(userId)
+                }
+            }.collect { transactions ->
+                val filtered = applyDateFilter(transactions)
+                val grouped = groupByDate(filtered)
+
+                _uiState.value = ActivityUiState(
+                    groupedTransactions = grouped,
+                    isLoading = false,
+                    isEmpty = grouped.isEmpty(),
+                    activeFilter = _activeFilter.value
+                )
+            }
+        }
+    }
+
+    private fun applyDateFilter(transactions: List<TransactionEntity>): List<TransactionEntity> {
+        val start = _startDate.value ?: return transactions
+        val end = _endDate.value ?: return transactions
+        return transactions.filter { it.date in start..end }
+    }
+
+    private fun groupByDate(transactions: List<TransactionEntity>): List<TransactionListItem> {
+        val result = mutableListOf<TransactionListItem>()
+        val sorted = transactions.sortedByDescending { it.date }
+
+        var lastGroup = ""
+        for (tx in sorted) {
+            val group = tx.date.toGroupHeader()
+            val displayDate = tx.date.toShortDate()
+
+            if (group != lastGroup) {
+                result.add(TransactionListItem.Header(label = group, date = displayDate))
+                lastGroup = group
+            }
+            result.add(TransactionListItem.Item(tx))
+        }
+        return result
+    }
+
+    fun onSearchQueryChanged(query: String) {
+        _searchQuery.value = query
+    }
+
+    fun setFilter(filter: TransactionFilter) {
+        _activeFilter.value = filter
+        _searchQuery.value = ""
+    }
+
+    fun setDateRange(startMs: Long, endMs: Long) {
+        _startDate.value = startMs
+        _endDate.value = endMs
+    }
+
+    fun clearDateRange() {
+        _startDate.value = null
+        _endDate.value = null
+    }
+
+}
+
+private data class Quad<A, B, C, D>(val first: A, val second: B, val third: C, val fourth: D)
