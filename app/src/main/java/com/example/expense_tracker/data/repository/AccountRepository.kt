@@ -16,6 +16,11 @@ class AccountRepository(
     suspend fun insertAccount(account: AccountEntity): Long =
         accountDao.insertAccount(account)
 
+    suspend fun updateAccount(account: AccountEntity) {
+        // Cần thêm method update trong AccountDao
+        accountDao.updateAccount(account)
+    }
+
     suspend fun updateBalance(accountId: Long, newBalance: Double) =
         accountDao.updateBalance(accountId, newBalance)
 
