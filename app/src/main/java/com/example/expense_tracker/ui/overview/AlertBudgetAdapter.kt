@@ -38,34 +38,30 @@ class AlertBudgetAdapter :
             binding.tvCategoryName.text = category?.displayName ?: budget.categoryId
 
             // Số tiền đã tiêu / hạn mức
-            val spent   = budget.spent
-            val limit   = budget.limitAmount
+            val spent = budget.spent
+            val limit = budget.limitAmount
             val percent = if (limit > 0) ((spent / limit) * 100).toInt().coerceIn(0, 100) else 0
 
             binding.tvSpentInfo.text =
                 "Spent ${CurrencyFormatter.formatAmount(spent)} of ${CurrencyFormatter.formatAmount(limit)}"
-            binding.tvPercent.text   = "$percent%"
+            binding.tvPercent.text = "$percent%"
             binding.progressBudget.progress = percent
 
             // Màu đỏ khi >= 80%, primary khi > 50%
             val colorRes = if (percent >= 80) R.color.error else R.color.primary
-            val color    = binding.root.context.getColor(colorRes)
+            val color = binding.root.context.getColor(colorRes)
             binding.tvPercent.setTextColor(color)
             binding.progressBudget.setIndicatorColor(color)
 
-            // Icon Material Symbols — set text vào tvIcon
-            binding.tvIcon.text = category?.icon ?: "savings"
+            // SỬA: Icon - dùng ImageView thay vì TextView
+            val iconRes = Constants.getIconResource(category?.icon ?: "receipt_long")
+            binding.ivIcon.setImageResource(iconRes)
 
             // Màu nền từ Category.colorHex
             val bgColor = runCatching {
                 Color.parseColor(category?.colorHex ?: "#F5F5F5")
             }.getOrDefault(Color.parseColor("#F5F5F5"))
             binding.iconContainer.backgroundTintList = ColorStateList.valueOf(bgColor)
-
-            // Màu icon
-            binding.tvIcon.setTextColor(
-                binding.root.context.getColor(R.color.on_surface_variant)
-            )
         }
     }
 

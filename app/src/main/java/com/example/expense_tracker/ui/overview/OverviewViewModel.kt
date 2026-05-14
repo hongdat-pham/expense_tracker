@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.expense_tracker.data.local.entity.BudgetEntity
 import com.example.expense_tracker.data.local.entity.TransactionEntity
 import com.example.expense_tracker.data.local.entity.TransactionType
+import com.example.expense_tracker.data.repository.BudgetRepository
 import com.example.expense_tracker.data.repository.TransactionRepository
 import com.example.expense_tracker.utils.DateUtils
 import com.example.expense_tracker.utils.SharedPrefsHelper
@@ -23,11 +24,13 @@ data class OverviewUiState(
     val budgetPercent: Int = 0,
     val alertBudgets: List<BudgetEntity> = emptyList(),
     val recentTransactions: List<TransactionEntity> = emptyList(),
+    val balanceChangePercent: Double = 0.0,
     val isLoading: Boolean = true
 )
 
 class OverviewViewModel(
     private val transactionRepository: TransactionRepository,
+    private val budgetRepository: BudgetRepository,
     private val sharedPrefsHelper: SharedPrefsHelper
 ) : ViewModel() {
 
@@ -40,17 +43,24 @@ class OverviewViewModel(
         loadDataRealtime()
     }
 
-    // SỬA: Dùng Flow để lắng nghe thay đổi realtime
     private fun loadDataRealtime() {
         viewModelScope.launch {
             val month = DateUtils.getCurrentMonth()
             val year = DateUtils.getCurrentYear()
 
-            // Lắng nghe transactions realtime từ database
+            // Tính tháng trước để lấy % thay đổi
+            val prevMonth = if (month == 1) 12 else month - 1
+            val prevYear = if (month == 1) year - 1 else year
+
+            // Lấy transactions tháng trước
+            val prevTransactions = transactionRepository.getTransactionsByUserAndMonthOnce(userId, prevMonth, prevYear)
+            val prevTotalSpent = prevTransactions
+                .filter { it.type == TransactionType.EXPENSE }
+                .sumOf { it.amount }
+
+            // Lắng nghe transactions realtime
             transactionRepository.getTransactionsByUserAndMonth(userId, month, year)
                 .collectLatest { transactions ->
-
-                    android.util.Log.d("OverviewVM", "Realtime update: ${transactions.size} transactions")
 
                     val monthlySpent = transactions
                         .filter { it.type == TransactionType.EXPENSE }
@@ -64,23 +74,46 @@ class OverviewViewModel(
                         .sortedByDescending { it.date }
                         .take(5)
 
-                    _uiState.value = OverviewUiState(
-                        totalBalance = monthlyIncome - monthlySpent,
-                        monthlySpent = monthlySpent,
-                        monthlyIncome = monthlyIncome,
-                        budgetRemaining = 0.0,
-                        budgetTotal = 0.0,
-                        budgetPercent = 0,
-                        alertBudgets = emptyList(),
-                        recentTransactions = recentTransactions,
-                        isLoading = false
-                    )
+                    // Tính % thay đổi so với tháng trước
+                    val balanceChangePercent = if (prevTotalSpent > 0) {
+                        ((monthlySpent - prevTotalSpent) / prevTotalSpent) * 100
+                    } else {
+                        0.0
+                    }
+
+                    // Budget Left = Tổng chi / Tổng thu
+                    val budgetRemaining = (monthlyIncome - monthlySpent).coerceAtLeast(0.0)
+                    val budgetTotal = monthlyIncome
+                    val budgetPercent = if (monthlyIncome > 0) {
+                        ((monthlySpent / monthlyIncome) * 100).toInt().coerceIn(0, 100)
+                    } else 0
+
+                    // Lấy budgets realtime cho alert
+                    budgetRepository.getBudgetsByUser(userId, month, year)
+                        .collectLatest { budgetList ->
+
+                            val alertBudgets = budgetList.filter {
+                                it.limitAmount > 0 && it.spent > it.limitAmount * 0.5
+                            }
+
+                            _uiState.value = OverviewUiState(
+                                totalBalance = monthlyIncome - monthlySpent,
+                                monthlySpent = monthlySpent,
+                                monthlyIncome = monthlyIncome,
+                                budgetRemaining = budgetRemaining,
+                                budgetTotal = budgetTotal,
+                                budgetPercent = budgetPercent,
+                                alertBudgets = alertBudgets,
+                                recentTransactions = recentTransactions,
+                                balanceChangePercent = balanceChangePercent,
+                                isLoading = false
+                            )
+                        }
                 }
         }
     }
 
     fun refresh() {
-        // Không cần làm gì vì Flow đã tự cập nhật
-        // Giữ lại để tương thích với code cũ nếu cần
+        // Flow tự cập nhật, không cần làm gì
     }
 }

@@ -2,7 +2,10 @@ package com.example.expense_tracker.ui.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.expense_tracker.data.local.dao.AccountDao
 import com.example.expense_tracker.data.local.dao.UserDao
+import com.example.expense_tracker.data.local.entity.AccountEntity
+import com.example.expense_tracker.data.local.entity.AccountType
 import com.example.expense_tracker.data.local.entity.UserEntity
 import com.example.expense_tracker.utils.SharedPrefsHelper
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -14,10 +17,9 @@ import java.security.MessageDigest
 
 class AuthViewModel(
     private val userDao: UserDao,
+    private val accountDao: AccountDao,
     private val sharedPrefsHelper: SharedPrefsHelper
 ) : ViewModel() {
-
-    // --- State ---
 
     private val _loginState = MutableStateFlow<AuthResult>(AuthResult.Idle)
     val loginState: StateFlow<AuthResult> = _loginState
@@ -25,11 +27,8 @@ class AuthViewModel(
     private val _registerState = MutableStateFlow<AuthResult>(AuthResult.Idle)
     val registerState: StateFlow<AuthResult> = _registerState
 
-    // After successful register: carry email+pass to LoginFragment for auto-fill
     private val _registeredCredentials = MutableSharedFlow<Credentials>()
     val registeredCredentials: SharedFlow<Credentials> = _registeredCredentials
-
-    // --- Auth Actions ---
 
     fun register(fullName: String, email: String, password: String) {
         if (fullName.isBlank() || email.isBlank() || password.isBlank()) {
@@ -45,7 +44,19 @@ class AuthViewModel(
             }
             val hash = sha256(password)
             val newUser = UserEntity(fullName = fullName, email = email, passwordHash = hash)
-            userDao.insertUser(newUser)
+            val userId = userDao.insertUser(newUser)
+
+            // Tạo Cash account mặc định cho user mới
+            val cashAccount = AccountEntity(
+                userId = userId,
+                name = "Cash",
+                lastFourDigits = "CASH",
+                type = AccountType.CASH,
+                balance = 500.0,
+                isActive = true
+            )
+            accountDao.insertAccount(cashAccount)
+
             _registeredCredentials.emit(Credentials(email, password))
             _registerState.value = AuthResult.Success
         }
@@ -78,14 +89,10 @@ class AuthViewModel(
         _registerState.value = AuthResult.Idle
     }
 
-    // --- Helper ---
-
     private fun sha256(input: String): String {
         val bytes = MessageDigest.getInstance("SHA-256").digest(input.toByteArray())
         return bytes.joinToString("") { "%02x".format(it) }
     }
-
-    // --- Sealed Result ---
 
     sealed class AuthResult {
         object Idle : AuthResult()

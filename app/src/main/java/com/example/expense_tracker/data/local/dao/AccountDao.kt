@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.expense_tracker.data.local.entity.AccountEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -24,6 +25,11 @@ interface AccountDao {
 
     @Query("UPDATE accounts SET isActive = 0 WHERE id = :accountId")
     suspend fun deactivateAccount(accountId: Long)
+
     @Query("SELECT * FROM accounts LIMIT 1")
     suspend fun getFirstAccount(): AccountEntity?
+
+    // THÊM: Cập nhật account
+    @Update
+    suspend fun updateAccount(account: AccountEntity)
 }

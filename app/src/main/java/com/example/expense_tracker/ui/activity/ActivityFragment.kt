@@ -72,12 +72,13 @@ class ActivityFragment : Fragment() {
         }
     }
 
+    // SỬA: Xóa chipRecurring khỏi danh sách filter
     private fun setupFilterChips() {
         val chips = mapOf(
             binding.chipAll to TransactionFilter.ALL,
             binding.chipExpenses to TransactionFilter.EXPENSES,
-            binding.chipIncome to TransactionFilter.INCOME,
-            binding.chipRecurring to TransactionFilter.RECURRING
+            binding.chipIncome to TransactionFilter.INCOME
+            // ĐÃ XÓA binding.chipRecurring
         )
 
         chips.forEach { (chip, filter) ->
@@ -115,7 +116,6 @@ class ActivityFragment : Fragment() {
                         }
                         viewModel.setDateRange(startCal.timeInMillis, endCal.timeInMillis)
                         updateDateFilterLabel(startCal, endCal)
-                        // Hiển thị nút clear khi có bộ lọc ngày
                         binding.btnClearDate.visibility = View.VISIBLE
                     },
                     calendar.get(Calendar.YEAR),
@@ -137,11 +137,8 @@ class ActivityFragment : Fragment() {
 
     private fun setupClearDateButton() {
         binding.btnClearDate.setOnClickListener {
-            // Clear date range trong ViewModel
             viewModel.clearDateRange()
-            // Reset label về "All Dates"
             binding.tvDateFilter.text = "All Dates"
-            // Ẩn nút clear
             binding.btnClearDate.visibility = View.GONE
         }
     }
@@ -162,6 +159,7 @@ class ActivityFragment : Fragment() {
         }
     }
 
+    // SỬA: Cập nhật UI chỉ với 3 chip
     private fun updateUi(state: ActivityUiState) {
         if (state.isEmpty) {
             binding.rvTransactions.visibility = View.GONE
@@ -172,14 +170,12 @@ class ActivityFragment : Fragment() {
             transactionAdapter.submitGroupedList(state.groupedTransactions)
         }
 
-        // Update chip state
         val chipToCheck = when (state.activeFilter) {
             TransactionFilter.ALL -> binding.chipAll
             TransactionFilter.EXPENSES -> binding.chipExpenses
             TransactionFilter.INCOME -> binding.chipIncome
-            TransactionFilter.RECURRING -> binding.chipRecurring
         }
-        listOf(binding.chipAll, binding.chipExpenses, binding.chipIncome, binding.chipRecurring)
+        listOf(binding.chipAll, binding.chipExpenses, binding.chipIncome)
             .forEach { it.isChecked = false }
         chipToCheck.isChecked = true
     }

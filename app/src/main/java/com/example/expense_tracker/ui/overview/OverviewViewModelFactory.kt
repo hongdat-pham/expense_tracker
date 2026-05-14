@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.expense_tracker.data.local.AppDatabase
+import com.example.expense_tracker.data.repository.BudgetRepository
 import com.example.expense_tracker.data.repository.TransactionRepository
 import com.example.expense_tracker.utils.SharedPrefsHelper
 
@@ -17,6 +18,7 @@ class OverviewViewModelFactory(private val context: Context) : ViewModelProvider
                 accountDao = db.accountDao(),
                 budgetDao = db.budgetDao()
             ),
+            budgetRepository = BudgetRepository(db.budgetDao()),
             sharedPrefsHelper = SharedPrefsHelper(context)
         ) as T
     }

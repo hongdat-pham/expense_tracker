@@ -6,6 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 enum class AccountType {
+    CASH,
     SAVING,
     CHECKING,
     CREDIT_CARD,

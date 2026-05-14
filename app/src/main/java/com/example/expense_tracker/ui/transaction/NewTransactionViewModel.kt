@@ -96,7 +96,7 @@ class NewTransactionViewModel(
         }
         val accountId = _selectedAccountId.value
         if (accountId == null) {
-            _errorMessage.value = "Please add an account first in Settings"
+            _errorMessage.value = "Please select a payment method"
             return
         }
 

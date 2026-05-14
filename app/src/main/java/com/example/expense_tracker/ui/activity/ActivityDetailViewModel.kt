@@ -3,6 +3,7 @@ package com.example.expense_tracker.ui.activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.expense_tracker.data.local.entity.TransactionEntity
+import com.example.expense_tracker.data.repository.AccountRepository
 import com.example.expense_tracker.data.repository.TransactionRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,7 +12,8 @@ import kotlinx.coroutines.launch
 
 class ActivityDetailViewModel(
     private val transactionId: Long,
-    private val transactionRepository: TransactionRepository
+    private val transactionRepository: TransactionRepository,
+    private val accountRepository: AccountRepository
 ) : ViewModel() {
 
     private val _transaction = MutableStateFlow<TransactionEntity?>(null)
@@ -26,7 +28,18 @@ class ActivityDetailViewModel(
 
     private fun loadTransaction() {
         viewModelScope.launch {
-            _transaction.value = transactionRepository.getById(transactionId)
+            val tx = transactionRepository.getById(transactionId)
+            _transaction.value = tx
+
+            // Lấy tên account
+            tx?.let {
+                if (it.accountId == -1L) {
+                    _accountName.value = "Cash"
+                } else {
+                    val account = accountRepository.getAccountById(it.accountId)
+                    _accountName.value = "${account.name} ••••${account.lastFourDigits}"
+                }
+            }
         }
     }
 
@@ -34,7 +47,6 @@ class ActivityDetailViewModel(
         viewModelScope.launch {
             _transaction.value?.let {
                 transactionRepository.deleteTransaction(it)
-                // Flow trong OverviewViewModel sẽ tự động cập nhật
             }
         }
     }

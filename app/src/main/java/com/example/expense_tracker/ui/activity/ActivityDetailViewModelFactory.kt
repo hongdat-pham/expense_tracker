@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.expense_tracker.data.local.AppDatabase
+import com.example.expense_tracker.data.repository.AccountRepository
 import com.example.expense_tracker.data.repository.TransactionRepository
 
 class ActivityDetailViewModelFactory(
@@ -19,7 +20,8 @@ class ActivityDetailViewModelFactory(
                 transactionDao = db.transactionDao(),
                 accountDao = db.accountDao(),
                 budgetDao = db.budgetDao()
-            )
+            ),
+            accountRepository = AccountRepository(db.accountDao())
         ) as T
     }
 }

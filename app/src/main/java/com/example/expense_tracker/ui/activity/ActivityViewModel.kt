@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import java.util.Calendar
 
-enum class TransactionFilter { ALL, EXPENSES, INCOME, RECURRING }
+enum class TransactionFilter { ALL, EXPENSES, INCOME}
 
 data class ActivityUiState(
     val groupedTransactions: List<TransactionListItem> = emptyList(),
@@ -85,8 +85,6 @@ class ActivityViewModel(
                         transactionRepository.getTransactionsByType(userId, TransactionType.EXPENSE)
                     filter == TransactionFilter.INCOME ->
                         transactionRepository.getTransactionsByType(userId, TransactionType.INCOME)
-                    filter == TransactionFilter.RECURRING ->
-                        transactionRepository.getRecurringTransactions(userId)
                     else ->
                         transactionRepository.getAllTransactionsByUser(userId)
                 }

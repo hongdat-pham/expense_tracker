@@ -1,4 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/rounded_bg_surface_lowest"
+    android:elevation="1dp"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Top row: icon + name + action buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <!-- Category icon -->
+        <ImageView
+            android:id="@+id/ivCategoryIcon"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_category_icon"
+            android:padding="10dp"
+            tools:src="@drawable/ic_restaurant" />
+
+        <!-- Name -->
+        <TextView
+            android:id="@+id/tvCategoryName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/manrope"
+            android:textColor="@color/on_surface"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:text="Food &amp; Drink" />
+
+        <!-- Action buttons container -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Edit button (visible when limit exists) -->
+            <ImageButton
+                android:id="@+id/btnEdit"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Edit limit"
+                android:src="@drawable/ic_edit"
+                android:visibility="gone"
+                app:tint="@color/outline" />
+
+            <!-- Delete button (visible when limit exists) -->
+            <ImageButton
+                android:id="@+id/btnDelete"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Delete limit"
+                android:src="@drawable/ic_delete"
+                android:visibility="gone"
+                app:tint="@color/error" />
+
+            <!-- Set Limit button (visible when no limit) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSetLimit"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:fontFamily="@font/inter"
+                android:text="Set Limit"
+                android:textSize="12sp"
+                app:backgroundTint="@color/surface_container_high"
+                android:textColor="@color/primary"
+                app:cornerRadius="8dp"
+                app:strokeWidth="0dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Progress group (visible only when limit is set) -->
+    <LinearLayout
+        android:id="@+id/groupProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <!-- Spent vs limit text + percent -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_marginBottom="6dp">
+
+            <TextView
+                android:id="@+id/tvSpentVsLimit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/inter"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:text="Spent $640 of $800" />
+
+            <TextView
+                android:id="@+id/tvPercent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:text="80%"
+                tools:textColor="@color/error" />
+
+        </LinearLayout>
+
+        <!-- Progress bar -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:max="100"
+            android:progressBackgroundTint="@color/surface_container_low"
+            android:progressTint="@color/primary"
+            tools:progress="80" />
+
+    </LinearLayout>
+
+</LinearLayout>

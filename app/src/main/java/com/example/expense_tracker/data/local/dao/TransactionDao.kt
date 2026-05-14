@@ -116,17 +116,11 @@ interface TransactionDao {
     @Query("SELECT * FROM transactions WHERE id = :transactionId LIMIT 1")
     suspend fun getTransactionById(transactionId: Long): TransactionEntity?
 
-    // ========== CÁC METHOD THÊM VÀO ==========
-
     @Query("SELECT * FROM transactions WHERE id = :id")
     suspend fun getById(id: Long): TransactionEntity?
 
     @Query("DELETE FROM transactions WHERE id = :id")
     suspend fun deleteById(id: Long)
-
-    suspend fun deleteTransaction(transactionId: Long) {
-        deleteById(transactionId)
-    }
 
     @Query("SELECT * FROM transactions ORDER BY date DESC")
     suspend fun getAllTransactions(): List<TransactionEntity>

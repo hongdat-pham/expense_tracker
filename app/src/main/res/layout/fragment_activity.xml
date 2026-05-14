@@ -92,7 +92,7 @@
 
             </LinearLayout>
 
-            <!-- Filter Chips -->
+            <!-- Filter Chips - ĐÃ XÓA chipRecurring -->
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -131,14 +131,6 @@
                         android:layout_marginEnd="8dp"
                         android:checkable="true"
                         android:text="Income" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipRecurring"
-                        style="@style/Widget.MaterialComponents.Chip.Filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checkable="true"
-                        android:text="Recurring" />
 
                 </LinearLayout>
             </HorizontalScrollView>
@@ -190,7 +182,6 @@
 
                 </LinearLayout>
 
-                <!-- Nút Clear Date -->
                 <ImageButton
                     android:id="@+id/btnClearDate"
                     android:layout_width="36dp"

@@ -15,6 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.expense_tracker.R
 import com.example.expense_tracker.data.local.AppDatabase
+import com.example.expense_tracker.data.local.entity.AccountType
 import com.example.expense_tracker.data.local.entity.TransactionType
 import com.example.expense_tracker.data.repository.AccountRepository
 import com.example.expense_tracker.data.repository.TransactionRepository
@@ -80,19 +81,15 @@ class NewTransactionFragment : Fragment() {
         }
     }
 
-    // SỬA: Xóa hẳn số 0 khi focus, để trống hoàn toàn
     private fun setupAmountField() {
-        // Ban đầu để trống
         binding.etAmount.text = null
 
         binding.etAmount.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                // Khi focus, nếu đang là null hoặc rỗng thì để trống
                 if (binding.etAmount.text.isNullOrEmpty()) {
                     binding.etAmount.text = null
                 }
             } else {
-                // Khi mất focus, nếu trống thì set lại 0
                 if (binding.etAmount.text.isNullOrEmpty()) {
                     binding.etAmount.setText("0")
                 }
@@ -224,7 +221,6 @@ class NewTransactionFragment : Fragment() {
             val amountText = binding.etAmount.text.toString()
             val description = binding.etDescription.text.toString()
 
-            // SỬA: Thêm validation cho description (bắt buộc)
             if (description.isBlank()) {
                 Toast.makeText(requireContext(), "Please enter a description", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -241,14 +237,34 @@ class NewTransactionFragment : Fragment() {
     private fun observeViewModel(userId: Long) {
         viewModel.accounts.observe(viewLifecycleOwner) { accounts ->
             binding.cgPaymentMethod.removeAllViews()
-            if (accounts.isEmpty()) return@observe
+            if (accounts.isEmpty()) {
+                Toast.makeText(requireContext(), "Please add an account in Settings first", Toast.LENGTH_LONG).show()
+                return@observe
+            }
 
             accounts.forEach { account ->
                 val chip = Chip(requireContext()).apply {
-                    text = "${account.name} ••••${account.lastFourDigits}"
-                    isCheckable = true
+                    if (account.type == AccountType.CASH) {
+                        text = "Cash"
+                        chipIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_wallet)
+                    } else {
+                        text = "${account.name} ••••${account.lastFourDigits}"
+                        chipIcon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_credit_card)
+                    }
+                    isChipIconVisible = true
+                    isCheckable = false
+                    isClickable = true
                     tag = account.id
-                    setOnClickListener { viewModel.selectAccount(account.id) }
+
+                    setChipBackgroundColorResource(R.color.surface_container_high)
+                    setTextColor(ContextCompat.getColor(requireContext(), R.color.on_surface_variant))
+
+                    setOnClickListener {
+                        resetPaymentMethodSelection()
+                        setChipBackgroundColorResource(R.color.primary)
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.on_primary))
+                        viewModel.selectAccount(account.id)
+                    }
                 }
                 binding.cgPaymentMethod.addView(chip)
             }
@@ -272,7 +288,13 @@ class NewTransactionFragment : Fragment() {
         viewModel.selectedAccountId.observe(viewLifecycleOwner) { selectedId ->
             for (i in 0 until binding.cgPaymentMethod.childCount) {
                 val chip = binding.cgPaymentMethod.getChildAt(i) as? Chip ?: continue
-                chip.isChecked = chip.tag == selectedId
+                if (chip.tag == selectedId) {
+                    chip.setChipBackgroundColorResource(R.color.primary)
+                    chip.setTextColor(ContextCompat.getColor(requireContext(), R.color.on_primary))
+                } else {
+                    chip.setChipBackgroundColorResource(R.color.surface_container_high)
+                    chip.setTextColor(ContextCompat.getColor(requireContext(), R.color.on_surface_variant))
+                }
             }
         }
 
@@ -288,6 +310,15 @@ class NewTransactionFragment : Fragment() {
                 findNavController().navigateUp()
             }
             viewModel.clearSaveResult()
+        }
+    }
+
+    private fun resetPaymentMethodSelection() {
+        for (i in 0 until binding.cgPaymentMethod.childCount) {
+            val chip = binding.cgPaymentMethod.getChildAt(i) as? Chip ?: continue
+            chip.setChipBackgroundColorResource(R.color.surface_container_high)
+            chip.setTextColor(ContextCompat.getColor(requireContext(), R.color.on_surface_variant))
+            chip.isChecked = false
         }
     }
 

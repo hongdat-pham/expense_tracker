@@ -1,4 +1,265 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    android:background="@color/surface">
+
+    <!-- TopAppBar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:paddingHorizontal="8dp">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Back"
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@color/primary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/manrope"
+                android:text="Manage Accounts"
+                android:textColor="@color/primary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:padding="16dp"
+        android:paddingBottom="32dp"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- ── LINKED ACCOUNTS ── -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/manrope"
+                android:text="Linked Accounts"
+                android:textColor="@color/on_surface"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:fontFamily="@font/inter"
+                android:text="Review and manage your active financial connections."
+                android:textColor="@color/on_surface_variant"
+                android:textSize="13sp" />
+
+            <!-- Empty state -->
+            <TextView
+                android:id="@+id/tvEmptyAccounts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/inter"
+                android:text="No accounts linked yet."
+                android:textColor="@color/on_surface_variant"
+                android:textSize="13sp"
+                android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvLinkedAccounts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/item_account" />
+
+            <!-- ── DIVIDER ── -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="24dp"
+                android:background="@color/outline_variant"
+                android:alpha="0.3" />
+
+            <!-- ── ADD NEW ACCOUNT FORM ── -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/manrope"
+                android:text="Add New Account"
+                android:textColor="@color/on_surface"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <!-- Account Name -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:fontFamily="@font/inter"
+                android:text="Account Name (e.g., Bank Name)"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="12sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:boxBackgroundColor="@color/surface_container_highest"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etAccountName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
+                    android:hint="Enter bank or institution name"
+                    android:textColor="@color/on_surface"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Last 4 Digits + Account Type (side by side) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
+
+                <!-- Last 4 Digits -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:fontFamily="@font/inter"
+                        android:text="Last 4 Digits"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:boxBackgroundColor="@color/surface_container_highest"
+                        app:boxStrokeWidth="0dp"
+                        app:boxStrokeWidthFocused="0dp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etLastFourDigits"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter"
+                            android:hint="4 digits"
+                            android:inputType="number"
+                            android:maxLength="4"
+                            android:textColor="@color/on_surface"
+                            android:textSize="14sp" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <!-- Account Type -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:fontFamily="@font/inter"
+                        android:text="Account Type"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="12sp" />
+
+                    <!-- Using plain Spinner styled to match design -->
+                    <Spinner
+                        android:id="@+id/spinnerAccountType"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:background="@drawable/rounded_bg_surface_lowest"
+                        android:paddingHorizontal="12dp"
+                        android:fontFamily="@font/inter" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Security info card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/rounded_bg_surface_lowest"
+                android:gravity="top"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/ic_receipt"
+                    app:tint="@color/primary" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter"
+                    android:text="Your financial data is encrypted using institutional-grade security protocols. Ventura Finance never stores your full account credentials."
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="12sp"
+                    android:lineSpacingMultiplier="1.4" />
+            </LinearLayout>
+
+            <!-- Save Button (right-aligned) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSaveAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:fontFamily="@font/manrope"
+                android:paddingHorizontal="32dp"
+                android:paddingVertical="12dp"
+                android:text="Save Account"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/primary"
+                app:cornerRadius="12dp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

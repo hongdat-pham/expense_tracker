@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -67,20 +68,16 @@ class OverviewFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
-        // "View All" - chuyển sang Activity Fragment
         binding.tvViewAll.setOnClickListener {
             val bottomNav = requireActivity().findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
                 R.id.bottomNavigationView
             )
-            bottomNav?.selectedItemId = R.id.activityFragment
+            bottomNav?.selectedItemId = R.id.navigation_activity
         }
 
-        // FAB - mở màn hình thêm giao dịch mới
         binding.fabAddTransaction.setOnClickListener {
             findNavController().navigate(R.id.action_overview_to_newTransaction)
         }
-
-        // ĐÃ XÓA binding.btnMenu.setOnClickListener
     }
 
     private fun observeUiState() {
@@ -96,6 +93,20 @@ class OverviewFragment : Fragment() {
     private fun updateUi(state: OverviewUiState) {
         // Update total balance
         binding.tvTotalBalance.text = CurrencyFormatter.formatAmount(state.totalBalance)
+
+        // Update balance change percentage
+        val changeText = if (state.balanceChangePercent >= 0) {
+            "+${String.format("%.1f", state.balanceChangePercent)}%"
+        } else {
+            "${String.format("%.1f", state.balanceChangePercent)}%"
+        }
+        binding.tvBalanceChange.text = changeText
+
+        val changeColor = if (state.balanceChangePercent >= 0) R.color.tertiary else R.color.error
+        binding.tvBalanceChange.setTextColor(requireContext().getColor(changeColor))
+        binding.tvBalanceChange.setBackgroundResource(
+            if (state.balanceChangePercent >= 0) R.drawable.badge_income_bg else R.drawable.badge_neutral_bg
+        )
 
         // Update monthly spending
         binding.tvMonthlySpent.text = CurrencyFormatter.formatAmount(state.monthlySpent)

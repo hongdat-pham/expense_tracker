@@ -19,6 +19,10 @@ object Constants {
         return categoriesMap.values.filter { it.type == targetType }
     }
 
+    fun getAllCategories(): List<Category> {
+        return categoriesMap.values.toList()
+    }
+
     fun getIconResource(iconName: String): Int {
         return when (iconName) {
             // Food & Dining
@@ -30,10 +34,12 @@ object Constants {
             // Transport
             "electric_car" -> R.drawable.ic_electric_car
             "car" -> R.drawable.ic_car
+            "directions_car" -> R.drawable.ic_directions_car
 
             // Travel
             "flight" -> R.drawable.ic_flight
             "beach" -> R.drawable.ic_beach_access
+            "beach_access" -> R.drawable.ic_beach_access
 
             // Entertainment
             "movie" -> R.drawable.ic_movie
@@ -46,6 +52,7 @@ object Constants {
             // Education
             "school" -> R.drawable.ic_school
             "library" -> R.drawable.ic_library_books
+            "library_books" -> R.drawable.ic_library_books
 
             // Home/Housing
             "home" -> R.drawable.ic_home
@@ -84,6 +91,10 @@ object Constants {
             // Analytics
             "insights" -> R.drawable.ic_insights
             "trending_up" -> R.drawable.ic_trending_up
+
+            // Settings
+            "notifications" -> R.drawable.ic_notifications
+            "fingerprint" -> R.drawable.ic_fingerprint
 
             // Default
             "receipt_long" -> R.drawable.ic_receipt

@@ -21,6 +21,7 @@ import com.example.expense_tracker.databinding.FragmentActivityDetailBinding
 import com.example.expense_tracker.utils.Constants
 import com.example.expense_tracker.utils.CurrencyFormatter
 import com.example.expense_tracker.utils.DateUtils.toFullDateTime
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 
 class ActivityDetailFragment : Fragment() {
@@ -93,40 +94,31 @@ class ActivityDetailFragment : Fragment() {
         val category = Constants.getCategoryById(tx.categoryId)
         val isExpense = tx.type == TransactionType.EXPENSE
 
-        // Số tiền
         binding.tvAmount.text = CurrencyFormatter.formatWithSign(tx.amount, tx.type)
         binding.tvAmount.setTextColor(
             requireContext().getColor(if (isExpense) R.color.error else R.color.tertiary)
         )
 
-        // Tên giao dịch
         binding.tvMerchantName.text = tx.description.ifBlank {
             category?.displayName ?: tx.categoryId
         }
 
-        // Icon - dùng ImageView
         val iconRes = Constants.getIconResource(category?.icon ?: "receipt_long")
         binding.ivCategoryIcon.setImageResource(iconRes)
 
-        // Màu nền icon container
         binding.iconContainer.backgroundTintList = requireContext().getColorStateList(
             if (isExpense) R.color.error_container else R.color.tertiary_fixed
         )
 
-        // Ngày giờ
         binding.tvDateTime.text = tx.date.toFullDateTime()
-
-        // Tên category
         binding.tvCategory.text = category?.displayName ?: tx.categoryId
 
-        // Description
         binding.tvDescription.text = if (tx.description.isNotBlank()) {
             "\"${tx.description}\""
         } else {
             getString(R.string.no_description)
         }
 
-        // Receipt
         if (!tx.receiptPath.isNullOrBlank()) {
             binding.cardReceipt.visibility = View.VISIBLE
             Glide.with(this)
@@ -137,7 +129,6 @@ class ActivityDetailFragment : Fragment() {
             binding.cardReceipt.visibility = View.GONE
         }
 
-        // Recurring badge
         binding.recurringBadge.visibility = if (tx.isRecurring) View.VISIBLE else View.GONE
     }
 
@@ -165,10 +156,11 @@ class ActivityDetailFragment : Fragment() {
         popup.show()
     }
 
+    // SỬA: Popup xóa đẹp hơn với MaterialAlertDialogBuilder
     private fun showDeleteConfirmation() {
-        AlertDialog.Builder(requireContext())
+        MaterialAlertDialogBuilder(requireContext())
             .setTitle("Delete Transaction")
-            .setMessage("Are you sure you want to delete this transaction?")
+            .setMessage("Are you sure you want to delete this transaction? This action cannot be undone.")
             .setPositiveButton("Delete") { _, _ ->
                 viewModel.deleteTransaction()
                 findNavController().navigateUp()

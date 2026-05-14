@@ -13,7 +13,7 @@ class AuthViewModelFactory(private val context: Context) : ViewModelProvider.Fac
             val db = AppDatabase.getInstance(context)
             val prefs = SharedPrefsHelper(context)
             @Suppress("UNCHECKED_CAST")
-            return AuthViewModel(db.userDao(), prefs) as T
+            return AuthViewModel(db.userDao(), db.accountDao(), prefs) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
