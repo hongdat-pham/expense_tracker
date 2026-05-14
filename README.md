@@ -2,13 +2,6 @@
 
 > A personal expense tracking Android app built with Kotlin and modern Android architecture.
 
----
-
-## 📱 Screenshots
-
-> *(Add screenshots here after build)*
-
----
 
 ## ✨ Features
 
