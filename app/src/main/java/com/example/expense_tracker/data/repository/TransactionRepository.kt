@@ -31,7 +31,7 @@ class TransactionRepository(
         }
     }
 
-    // Flow queries
+    // Flow queries (realtime)
     fun getAllTransactionsByUser(userId: Long): Flow<List<TransactionEntity>> =
         transactionDao.getAllTransactionsByUser(userId)
 
@@ -85,7 +85,7 @@ class TransactionRepository(
     suspend fun getTransactionsByUser(userId: Long): List<TransactionEntity> =
         transactionDao.getTransactionsByUser(userId)
 
-    suspend fun getTransactionsByUser(userId: Long, month: Int, year: Int): List<TransactionEntity> {
-        return transactionDao.getTransactionsByUserAndMonthOnce(userId, month, year)
-    }
+    // THÊM: overload cho OverviewViewModel dùng Flow
+    fun getTransactionsByUserFlow(userId: Long): Flow<List<TransactionEntity>> =
+        transactionDao.getAllTransactionsByUser(userId)
 }
