@@ -199,9 +199,9 @@ class AnalyticsFragment : Fragment() {
         }
 
         val trendText = when {
-            state.trendPercent < 0 -> "%.1f%% vs last month".format(-state.trendPercent)
-            state.trendPercent > 0 -> "+%.1f%% vs last month".format(state.trendPercent)
-            else -> "Same as last month"
+            state.trendPercent < 0 -> "%.1f%% vs previous month".format(-state.trendPercent)
+            state.trendPercent > 0 -> "+%.1f%% vs previous month".format(state.trendPercent)
+            else -> "Same as previous month"
         }
         binding.tvTrendPercent.text = trendText
         val trendColor = if (state.trendPercent <= 0) R.color.tertiary else R.color.error

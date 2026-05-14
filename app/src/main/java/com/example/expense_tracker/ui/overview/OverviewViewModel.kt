@@ -11,6 +11,7 @@ import com.example.expense_tracker.utils.SharedPrefsHelper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 data class OverviewUiState(
@@ -36,47 +37,50 @@ class OverviewViewModel(
     private val userId: Long get() = sharedPrefsHelper.getUserId()
 
     init {
-        loadData()
+        loadDataRealtime()
     }
 
-    private fun loadData() {
+    // SỬA: Dùng Flow để lắng nghe thay đổi realtime
+    private fun loadDataRealtime() {
         viewModelScope.launch {
             val month = DateUtils.getCurrentMonth()
             val year = DateUtils.getCurrentYear()
 
-            val transactions = transactionRepository.getTransactionsByUser(userId, month, year)
+            // Lắng nghe transactions realtime từ database
+            transactionRepository.getTransactionsByUserAndMonth(userId, month, year)
+                .collectLatest { transactions ->
 
-            // Thêm log để debug
-            android.util.Log.d("OverviewVM", "Found ${transactions.size} transactions for month $month/$year")
-            transactions.take(5).forEach { tx ->
-                android.util.Log.d("OverviewVM", "Tx: ${tx.description} - ${tx.amount}")
-            }
+                    android.util.Log.d("OverviewVM", "Realtime update: ${transactions.size} transactions")
 
-            val monthlySpent = transactions
-                .filter { it.type == TransactionType.EXPENSE }
-                .sumOf { it.amount }
+                    val monthlySpent = transactions
+                        .filter { it.type == TransactionType.EXPENSE }
+                        .sumOf { it.amount }
 
-            val monthlyIncome = transactions
-                .filter { it.type == TransactionType.INCOME }
-                .sumOf { it.amount }
+                    val monthlyIncome = transactions
+                        .filter { it.type == TransactionType.INCOME }
+                        .sumOf { it.amount }
 
-            val recentTransactions = transactions
-                .sortedByDescending { it.date }
-                .take(5)
+                    val recentTransactions = transactions
+                        .sortedByDescending { it.date }
+                        .take(5)
 
-            _uiState.value = OverviewUiState(
-                totalBalance = monthlyIncome - monthlySpent,
-                monthlySpent = monthlySpent,
-                monthlyIncome = monthlyIncome,
-                budgetRemaining = 0.0,
-                budgetTotal = 0.0,
-                budgetPercent = 0,
-                alertBudgets = emptyList(),
-                recentTransactions = recentTransactions,
-                isLoading = false
-            )
+                    _uiState.value = OverviewUiState(
+                        totalBalance = monthlyIncome - monthlySpent,
+                        monthlySpent = monthlySpent,
+                        monthlyIncome = monthlyIncome,
+                        budgetRemaining = 0.0,
+                        budgetTotal = 0.0,
+                        budgetPercent = 0,
+                        alertBudgets = emptyList(),
+                        recentTransactions = recentTransactions,
+                        isLoading = false
+                    )
+                }
         }
     }
 
-    fun refresh() = loadData()
+    fun refresh() {
+        // Không cần làm gì vì Flow đã tự cập nhật
+        // Giữ lại để tương thích với code cũ nếu cần
+    }
 }

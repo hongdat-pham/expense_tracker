@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import com.example.expense_tracker.utils.DateUtils  // THÊM IMPORT NÀY
 
 class ActivityDetailViewModel(
     private val transactionId: Long,
@@ -18,7 +17,6 @@ class ActivityDetailViewModel(
     private val _transaction = MutableStateFlow<TransactionEntity?>(null)
     val transaction: StateFlow<TransactionEntity?> = _transaction.asStateFlow()
 
-    // accountName sẽ tích hợp sau khi Phúc push AccountRepository
     private val _accountName = MutableStateFlow<String?>(null)
     val accountName: StateFlow<String?> = _accountName.asStateFlow()
 
@@ -34,7 +32,10 @@ class ActivityDetailViewModel(
 
     fun deleteTransaction() {
         viewModelScope.launch {
-            _transaction.value?.let { transactionRepository.deleteTransaction(it) }
+            _transaction.value?.let {
+                transactionRepository.deleteTransaction(it)
+                // Flow trong OverviewViewModel sẽ tự động cập nhật
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.expense_tracker.utils
 
 import com.example.expense_tracker.R
+import com.example.expense_tracker.data.local.entity.TransactionType
 import com.example.expense_tracker.data.model.Category
 import com.example.expense_tracker.data.model.CategoryType
 
@@ -10,36 +11,90 @@ object Constants {
         return categoriesMap[categoryId]
     }
 
+    fun getCategoriesByType(type: TransactionType): List<Category> {
+        val targetType = when (type) {
+            TransactionType.EXPENSE -> CategoryType.EXPENSE
+            TransactionType.INCOME -> CategoryType.INCOME
+        }
+        return categoriesMap.values.filter { it.type == targetType }
+    }
+
     fun getIconResource(iconName: String): Int {
         return when (iconName) {
+            // Food & Dining
+            "fastfood" -> R.drawable.ic_fastfood
+            "dining" -> R.drawable.ic_dining
             "restaurant" -> R.drawable.ic_restaurant
+            "grocery" -> R.drawable.ic_grocery
+
+            // Transport
+            "electric_car" -> R.drawable.ic_electric_car
             "car" -> R.drawable.ic_car
+
+            // Travel
             "flight" -> R.drawable.ic_flight
+            "beach" -> R.drawable.ic_beach_access
+
+            // Entertainment
             "movie" -> R.drawable.ic_movie
+            "sports_esports" -> R.drawable.ic_sports_esports
+
+            // Health
             "health" -> R.drawable.ic_health
+            "fitness" -> R.drawable.ic_fitness
+
+            // Education
             "school" -> R.drawable.ic_school
-            "gift" -> R.drawable.ic_gift
+            "library" -> R.drawable.ic_library_books
+
+            // Home/Housing
             "home" -> R.drawable.ic_home
+            "other_houses" -> R.drawable.ic_other_houses
+
+            // Finance
             "payments" -> R.drawable.ic_payments
             "savings" -> R.drawable.ic_savings
-            "receipt_long" -> R.drawable.ic_receipt
             "credit_card" -> R.drawable.ic_credit_card
             "wallet" -> R.drawable.ic_wallet
-            "trending_up" -> R.drawable.ic_trending_up
-            "bolt" -> R.drawable.ic_bolt
-            "spa" -> R.drawable.ic_spa
-            "pets" -> R.drawable.ic_pets
-            "laptop" -> R.drawable.ic_laptop
-            "grocery" -> R.drawable.ic_grocery
+            "security" -> R.drawable.ic_security
+
+            // Shopping
             "shopping_bag" -> R.drawable.ic_shopping_bag
+            "local_mall" -> R.drawable.ic_local_mall
+
+            // Utilities
+            "bolt" -> R.drawable.ic_bolt
+
+            // Personal Care
+            "spa" -> R.drawable.ic_spa
+
+            // Pets
+            "pets" -> R.drawable.ic_pets
+
+            // Technology
+            "laptop" -> R.drawable.ic_laptop
+            "smartphone" -> R.drawable.ic_smartphone
+
+            // Gift
+            "gift" -> R.drawable.ic_gift
+
+            // Subscription
             "repeat" -> R.drawable.ic_repeat
+
+            // Analytics
             "insights" -> R.drawable.ic_insights
+            "trending_up" -> R.drawable.ic_trending_up
+
+            // Default
+            "receipt_long" -> R.drawable.ic_receipt
             else -> R.drawable.ic_receipt
         }
     }
 
     private val categoriesMap = mapOf(
+        // =========================
         // INCOME categories
+        // =========================
         "salary" to Category(
             id = "salary",
             displayName = "Salary",
@@ -55,18 +110,20 @@ object Constants {
             colorHex = "#2196F3"
         ),
 
+        // =========================
         // EXPENSE categories - Food & Dining
+        // =========================
         "food_drink" to Category(
             id = "food_drink",
             displayName = "Food & Drink",
-            icon = "restaurant",
+            icon = "fastfood",
             type = CategoryType.EXPENSE,
             colorHex = "#FF9800"
         ),
         "restaurant" to Category(
             id = "restaurant",
             displayName = "Restaurant",
-            icon = "restaurant",
+            icon = "dining",
             type = CategoryType.EXPENSE,
             colorHex = "#FF5722"
         ),
@@ -78,11 +135,13 @@ object Constants {
             colorHex = "#8BC34A"
         ),
 
+        // =========================
         // Transport
+        // =========================
         "transport" to Category(
             id = "transport",
             displayName = "Transport",
-            icon = "car",
+            icon = "electric_car",
             type = CategoryType.EXPENSE,
             colorHex = "#9C27B0"
         ),
@@ -94,7 +153,9 @@ object Constants {
             colorHex = "#673AB7"
         ),
 
+        // =========================
         // Shopping
+        // =========================
         "shopping" to Category(
             id = "shopping",
             displayName = "Shopping",
@@ -103,11 +164,13 @@ object Constants {
             colorHex = "#E91E63"
         ),
 
+        // =========================
         // Housing
+        // =========================
         "housing" to Category(
             id = "housing",
             displayName = "Housing",
-            icon = "home",
+            icon = "other_houses",
             type = CategoryType.EXPENSE,
             colorHex = "#795548"
         ),
@@ -119,11 +182,13 @@ object Constants {
             colorHex = "#8D6E63"
         ),
 
+        // =========================
         // Entertainment
+        // =========================
         "entertainment" to Category(
             id = "entertainment",
             displayName = "Entertainment",
-            icon = "movie",
+            icon = "sports_esports",
             type = CategoryType.EXPENSE,
             colorHex = "#FF4081"
         ),
@@ -135,7 +200,9 @@ object Constants {
             colorHex = "#3F51B5"
         ),
 
+        // =========================
         // Health
+        // =========================
         "health" to Category(
             id = "health",
             displayName = "Health",
@@ -144,11 +211,13 @@ object Constants {
             colorHex = "#4CAF50"
         ),
 
+        // =========================
         // Education
+        // =========================
         "education" to Category(
             id = "education",
             displayName = "Education",
-            icon = "school",
+            icon = "library",
             type = CategoryType.EXPENSE,
             colorHex = "#00BCD4"
         ),
@@ -160,7 +229,9 @@ object Constants {
             colorHex = "#009688"
         ),
 
+        // =========================
         // Utilities
+        // =========================
         "utilities" to Category(
             id = "utilities",
             displayName = "Utilities",
@@ -169,11 +240,13 @@ object Constants {
             colorHex = "#FFC107"
         ),
 
+        // =========================
         // Travel
+        // =========================
         "travel" to Category(
             id = "travel",
             displayName = "Travel",
-            icon = "flight",
+            icon = "beach",
             type = CategoryType.EXPENSE,
             colorHex = "#2196F3"
         ),
@@ -185,7 +258,9 @@ object Constants {
             colorHex = "#448AFF"
         ),
 
+        // =========================
         // Personal Care
+        // =========================
         "personal_care" to Category(
             id = "personal_care",
             displayName = "Personal Care",
@@ -194,7 +269,9 @@ object Constants {
             colorHex = "#FF9800"
         ),
 
+        // =========================
         // Pets
+        // =========================
         "pet" to Category(
             id = "pet",
             displayName = "Pet",
@@ -203,7 +280,9 @@ object Constants {
             colorHex = "#8D6E63"
         ),
 
+        // =========================
         // Others
+        // =========================
         "other_expense" to Category(
             id = "other_expense",
             displayName = "Other",
@@ -219,7 +298,9 @@ object Constants {
             colorHex = "#FF5722"
         ),
 
+        // =========================
         // Technology
+        // =========================
         "electronics" to Category(
             id = "electronics",
             displayName = "Electronics",
@@ -228,7 +309,9 @@ object Constants {
             colorHex = "#607D8B"
         ),
 
+        // =========================
         // Financial
+        // =========================
         "bank_fee" to Category(
             id = "bank_fee",
             displayName = "Bank Fee",
@@ -239,7 +322,7 @@ object Constants {
         "insurance" to Category(
             id = "insurance",
             displayName = "Insurance",
-            icon = "savings",
+            icon = "security",
             type = CategoryType.EXPENSE,
             colorHex = "#66BB6A"
         ),
@@ -251,7 +334,9 @@ object Constants {
             colorHex = "#42A5F5"
         ),
 
+        // =========================
         // Subscription
+        // =========================
         "subscription" to Category(
             id = "subscription",
             displayName = "Subscription",

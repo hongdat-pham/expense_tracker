@@ -74,7 +74,6 @@
                     android:textColor="@color/on_surface_variant"
                     android:textSize="10sp" />
 
-                <!-- Month navigator row -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -130,14 +129,12 @@
                     android:orientation="vertical"
                     android:padding="20dp">
 
-                    <!-- PieChart -->
                     <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/pieChart"
                         android:layout_width="200dp"
                         android:layout_height="200dp"
                         android:layout_gravity="center_horizontal" />
 
-                    <!-- Trend row -->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -161,10 +158,9 @@
                             android:fontFamily="@font/inter_semi_bold"
                             android:textColor="@color/tertiary"
                             android:textSize="13sp"
-                            tools:text="8.4% vs last month" />
+                            tools:text="8.4% vs previous month" />
                     </LinearLayout>
 
-                    <!-- Custom Legend (RecyclerView) -->
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvPieLegend"
                         android:layout_width="match_parent"
@@ -199,7 +195,6 @@
                 android:layout_marginTop="12dp"
                 android:orientation="horizontal">
 
-                <!-- Highest Spend card -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -271,7 +266,6 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- Est. Savings card -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -343,7 +337,7 @@
 
             </LinearLayout>
 
-            <!-- ── MONTHLY COMPARISON (BarChart) ──────────────────── -->
+            <!-- ── MONTHLY COMPARISON (ĐẸP HƠN) ──────────────────── -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -361,31 +355,107 @@
                     android:textColor="@color/on_surface"
                     android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/tvBarChartAvg"
+                <!-- Legend đẹp hơn -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter"
-                    android:textColor="@color/on_surface_variant"
-                    android:textSize="12sp"
-                    tools:text="Avg: $4,200" />
+                    android:background="@drawable/badge_neutral_bg"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:background="@drawable/bg_circle_primary"
+                        android:layout_marginEnd="6dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter"
+                        android:text="Expense"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="11sp"
+                        android:layout_marginEnd="12dp" />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:background="@drawable/bg_circle_tertiary"
+                        android:layout_marginEnd="6dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter"
+                        android:text="Income"
+                        android:textColor="@color/on_surface_variant"
+                        android:textSize="11sp" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
+            <!-- Card với gradient nhẹ và shadow -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="12dp"
                 app:cardBackgroundColor="@color/surface_container_low"
                 app:cardCornerRadius="24dp"
-                app:cardElevation="0dp">
+                app:cardElevation="4dp">
 
-                <com.github.mikephil.charting.charts.BarChart
-                    android:id="@+id/barChart"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="16dp" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <!-- BarChart -->
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/barChart"
+                        android:layout_width="match_parent"
+                        android:layout_height="240dp" />
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/outline_variant"
+                        android:alpha="0.3" />
+
+                    <!-- Avg label với icon -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="12dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:src="@drawable/ic_trending_up"
+                            app:tint="@color/primary"
+                            android:layout_marginEnd="6dp" />
+
+                        <TextView
+                            android:id="@+id/tvBarChartAvg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_semi_bold"
+                            android:textColor="@color/on_surface_variant"
+                            android:textSize="12sp"
+                            tools:text="Avg: $4,200" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
@@ -400,7 +470,6 @@
                 android:textColor="@color/on_surface"
                 android:textSize="18sp" />
 
-            <!-- Empty state (shown when no data) -->
             <LinearLayout
                 android:id="@+id/layoutIntensityEmpty"
                 android:layout_width="match_parent"
@@ -431,7 +500,6 @@
 
             </LinearLayout>
 
-            <!-- Intensity list (RecyclerView) -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvIntensity"
                 android:layout_width="match_parent"
@@ -442,29 +510,11 @@
                 tools:itemCount="3"
                 tools:listitem="@layout/item_intensity_report" />
 
-            <!-- bottom spacer -->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="16dp" />
 
         </LinearLayout>
     </ScrollView>
-
-    <!-- FAB (nếu cần) -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAddTransaction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="24dp"
-        android:layout_marginBottom="88dp"
-        android:contentDescription="Add Transaction"
-        android:src="@drawable/ic_add"
-        android:visibility="gone"
-        app:backgroundTint="@color/primary"
-        app:borderWidth="0dp"
-        app:elevation="8dp"
-        app:fabSize="normal"
-        app:tint="@color/on_primary" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
